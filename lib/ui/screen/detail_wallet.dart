@@ -1,9 +1,12 @@
+import 'package:atomic/InfoCoin.dart';
+import 'package:atomic/ui/screen/home.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '/ui/component.dart';
 
 class DetailWalletScreen extends StatelessWidget {
-  const DetailWalletScreen({Key? key}) : super(key: key);
+  DetailWalletScreen({Key? key, required this.coin}) : super(key: key);
+  final InfoCoin coin;
 
   @override
   Widget build(BuildContext context) {
@@ -16,139 +19,19 @@ class DetailWalletScreen extends StatelessWidget {
               left: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: const Icon(Icons.arrow_back_ios, color: Colors.teal)),
-              title: 'Bitcoin Wallet',
-              right: const Icon(Icons.more_vert, color: Colors.white),),
+              title: coin.name,
+              right: const Icon(Icons.history),
+          ),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
-            _cardWallet(
-              iconUrl:
-                  'https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Bitcoin-icon.png',
-              crypto: 'Bitcoin',
-              cryptoShort: 'BTC',
-              totalCrypto: '3.519020 BTC',
-              total: '\$19.153 USD',
-              precent: -2.33,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Day'),
-                  Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-                      decoration: BoxDecoration(
-                          color: Colors.blueGrey[200],
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      child: Text(
-                        'Week',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                  Text('Month'),
-                  Text('Year'),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            card(
-              padding: 0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            _dot(color: Colors.pink),
-                            Text(
-                              'Lower: \$4.896',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black45),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            _dot(color: Colors.green),
-                            Text(
-                              'Higher:\$6.857',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black45),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 5,
-                    child: Stack(children: [
-                      LineChart(
-                        sampleData(),
-                      ),
-                      Positioned(
-                        bottom: 20,
-                        left: 20,
-                        child: Row(
-                          children: [
-                            _dot(size: 18, color: Colors.orangeAccent),
-                            Text(
-                              '1BTC=\$5.483',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ]),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: _actionButton(
-                    text: 'Buy',
-                    color: Colors.blue,
-                  ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: _actionButton(
-                    text: 'Sell',
-                    color: Colors.pink,
-                  ),
-                ),
-              ],
-            )
+            _cardWallet(coin: coin),
           ],
         ),
       ),
@@ -175,7 +58,7 @@ class DetailWalletScreen extends StatelessWidget {
         show: false,
       ),
       // minX: 0,
-      maxX: 12,
+      maxX: 10,
       maxY: 4,
       minY: 0,
       lineBarsData: linesBarData(),
@@ -186,18 +69,23 @@ class DetailWalletScreen extends StatelessWidget {
     return [
       LineChartBarData(
         spots: [
-          FlSpot(1, 2),
-          FlSpot(3, 2.8),
-          FlSpot(7, 2.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(13, 3),
+          FlSpot(0, 3),
+          FlSpot(1, 3.5),
+          FlSpot(2, 2.5),
+          FlSpot(3, 2.4),
+          FlSpot(4, 2.0),
+          FlSpot(5, 2.2),
+          FlSpot(6, 1.9),
+          FlSpot(7, 2.1),
+          FlSpot(8, 1.6),
+          FlSpot(9, 1),
+          FlSpot(10, 0.5),
         ],
         isCurved: true,
         colors: const [
-          Colors.orangeAccent,
+          Colors.blue,
         ],
-        barWidth: 4,
+        barWidth: 2,
         isStrokeCapRound: true,
         dotData: FlDotData(
           show: false,
@@ -207,118 +95,105 @@ class DetailWalletScreen extends StatelessWidget {
     ];
   }
 
-  Widget _dot({double size = 10, Color color = Colors.black}) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      width: size,
-      height: size,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20)),
-        child: Container(
-          color: color,
-        ),
-      ),
-    );
-  }
 
-  Widget _cardWallet(
-      {required String crypto,
-      cryptoShort,
-      iconUrl,
-      total,
-      totalCrypto,
-      required double precent}) {
+  Widget _cardWallet({required InfoCoin coin}) {
     return card(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Image.network(coin.url, width: 50,),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(coin.balance.toString() + " ", style: const TextStyle(color: Colors.white, fontSize: 30),),
+              Text(coin.name, style: const TextStyle(color: Colors.white54, fontSize: 30),),
+            ],
+          ),
+          Text(coin.profit.toString(), style: const TextStyle(color: Colors.white, fontSize: 30),),
+          Row(
+            children: [
+              const Text("\$ 31.11", style: TextStyle(color: Colors.white54),),
+              const SizedBox(width: 50,),
+              Text(coin.price.toString() + "(" + coin.percent.toString() + "%)", style: const TextStyle(color: Colors.white54))
+            ],
+          ),
+          const Divider(
+              color: Colors.white60,
+              thickness: 1
+          ),
+          SizedBox(
+            child: Stack(children: [
+              LineChart(
+                sampleData(),
+              ),
+            ]),
+          ),
+          const Divider(
+              color: Colors.white60,
+              thickness: 1
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                '$iconUrl',
-                width: 50,
-              ),
-              SizedBox(width: 20),
-              Expanded(
-                child: Text('$crypto',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              Text('$cryptoShort')
+              Text("\$ 27.7",style: TextStyle(color: Colors.white54),),
             ],
           ),
-          SizedBox(height: 20),
-          Text(
-            '$totalCrypto',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                color: Colors.black87),
+          SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Day', style: TextStyle(color: Colors.white60),),
+                Container(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                    decoration: BoxDecoration(
+                        color: Colors.blueGrey[200],
+                        borderRadius: BorderRadius.all(const Radius.circular(30))),
+                    child: const Text('Week', style: TextStyle(color: Colors.white),)),
+                const Text('Month',style: TextStyle(color: Colors.white60),),
+                Text('Year',style: const TextStyle(color: Colors.white60),),
+              ],
+            ),
           ),
+          const SizedBox(height: 50,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                '$total',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black38),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-                decoration: BoxDecoration(
-                    color: precent >= 0 ? Colors.green : Colors.pink,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                child: Text(
-                  precent >= 0 ? '+ $precent %' : '$precent %',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Expanded(
+                child: _actionButton(
+                  text: '      RECEIVE',
+                  color: const Color.fromRGBO(53, 66, 101, 1),
                 ),
-              )
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: _actionButton(
+                  text: '          SELL',
+                  color: Color.fromRGBO(0, 194, 255, 1),
+                ),
+              ),
             ],
-          ),
-          Center(
-            child: Icon(Icons.keyboard_arrow_down,
-                size: 30, color: Colors.black45),
           )
-        ],
+          ]
       ),
     );
   }
 
   Widget _actionButton({required Color color, required String text}) {
-    return card(
-        child: Column(
-      children: [
-        ClipOval(
-          child: Material(
-            color: color,
-            child: InkWell(
-              splashColor: Colors.red, // inkwell color
-              child: SizedBox(
-                  width: 56,
-                  height: 56,
-                  child: Icon(
-                    Icons.attach_money,
-                    color: Colors.white,
-                    size: 25.0,
-                  )),
-              onTap: () {},
-            ),
-          ),
-        ),
-        SizedBox(height: 10),
-        Text('$text', style: TextStyle(fontSize: 24, color: Colors.black54))
-      ],
-    ));
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+      ),
+      child: Text(text, style: TextStyle(color: Colors.white),),
+    );
   }
 }

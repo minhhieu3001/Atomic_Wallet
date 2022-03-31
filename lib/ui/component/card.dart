@@ -6,7 +6,7 @@ Widget card(
     width: width,
     padding: EdgeInsets.all(padding),
     decoration: const BoxDecoration(
-        color: Colors.amberAccent,
+        color: Color.fromRGBO(32, 43, 71, 1),
         borderRadius: BorderRadius.all(Radius.circular(15))),
     child: child,
   );

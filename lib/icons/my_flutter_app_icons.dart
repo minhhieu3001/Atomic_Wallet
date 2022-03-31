@@ -12,10 +12,6 @@
 ///       - asset: fonts/MyFlutterApp.ttf
 ///
 /// 
-/// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
-///         Author:    Dave Gandy
-///         License:   SIL ()
-///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -25,5 +21,6 @@ class MyFlutterApp {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData exchange = IconData(0xf0ec, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData exchange_svgrepo_com__1_ = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData buy_svgrepo_com = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

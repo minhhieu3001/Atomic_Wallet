@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget appBar({required Widget left, required String title, required Widget right}) {
+Widget appBar({ Widget? left, required String title, Widget? right}) {
   return Container(
     color: const Color.fromRGBO(32, 43, 71, 1),
     child: Padding(
@@ -8,16 +8,16 @@ Widget appBar({required Widget left, required String title, required Widget righ
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          left,
+          left!,
           Text(
-            '$title',
+            title,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 25,
               fontWeight: FontWeight.bold,
             ),
           ),
-          right,
+          right!,
         ],
       ),
     ),

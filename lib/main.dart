@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-enum TabItem { home, history, exchange, setting }
+enum TabItem { home, history, notification, setting }
 
 class MainApp extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class _MainAppState extends State<MainApp> {
   final List<TabItem> _bottomTabs = [
     TabItem.home,
     TabItem.history,
-    TabItem.exchange,
+    TabItem.notification,
     TabItem.setting
   ];
 
@@ -46,9 +46,9 @@ class _MainAppState extends State<MainApp> {
         preferredSize: Size.fromHeight(100.0),
         child: SafeArea(
           child: appBar(
-              left: const Icon(Icons.notes, color: Colors.white),
-              title: "0.00 \$",
-              right: const Icon(Icons.settings, color: Colors.white)),
+              left: Icon(Icons.notes, color: Colors.white),
+              title: 'Wallets',
+              right: Icon(Icons.settings, color: Colors.white)),
         ),
       ),
       body: _buildScreen(),
@@ -71,7 +71,7 @@ class _MainAppState extends State<MainApp> {
   BottomNavigationBarItem _bottomNavigationBarItem(
       IconData icon, TabItem tabItem) {
     final Color color =
-        _currentItem == tabItem ? Colors.black54 : Colors.black26;
+    _currentItem == tabItem ? Colors.black54 : Colors.black26;
 
     return BottomNavigationBarItem(icon: Icon(icon, color: color), label: '');
   }
@@ -90,8 +90,8 @@ class _MainAppState extends State<MainApp> {
         return Icons.account_balance_wallet;
       case TabItem.history:
         return Icons.history;
-      case TabItem.exchange:
-        return Icons.currency_exchange;
+      case TabItem.notification:
+        return Icons.notifications;
       case TabItem.setting:
         return Icons.settings;
       default:
@@ -105,7 +105,7 @@ class _MainAppState extends State<MainApp> {
         return HomeScreen();
       case TabItem.history:
       // return HomeScreen();
-      case TabItem.exchange:
+      case TabItem.notification:
       // return HomeScreen()
       case TabItem.setting:
       // return HomeScreen()
