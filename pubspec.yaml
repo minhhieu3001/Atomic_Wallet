@@ -35,6 +35,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   fl_chart: ^0.20.1
+  iconsax: ^0.0.8
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +48,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  iconsax: ^0.0.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -89,7 +90,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/images/atomic.png
+    - assets/images/flutter_history.jpg
+    - assets/images/history.jpg
 fonts:
-  - family: MyFlutterApp
+  - family: Roboto
     fonts:
-      - asset: assets/fonts/MyFlutterApp.ttf
+      -asset: assets/fonts/Roboto-Bold.ttf
+      weight: 700
+

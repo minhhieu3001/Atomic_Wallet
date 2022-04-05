@@ -12,50 +12,66 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  final coins = InfoCoin.getList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(32, 43, 71, 1),
-      // body: Column(
-      //   children: [
-      //     const SizedBox(
-      //       height: 25,
-      //     ),
-      //     const Padding(
-      //         padding: EdgeInsets.only(left: 20, right: 20),
-      //         child: TextField(
-      //           decoration: InputDecoration(
-      //             prefixIcon: Icon(Icons.search, color: Colors.white,),
-      //             fillColor: Color.fromRGBO(52, 68, 111, 0.5),
-      //             labelText: "Search...",
-      //             labelStyle: TextStyle(color: Colors.white),
-      //             enabledBorder: OutlineInputBorder(
-      //                 borderSide: BorderSide(color: Colors.white, width: 1.0),
-      //             ),
-      //           ),
-      //         )
-      //     ),
-      //     const SizedBox(
-      //       height: 15,
-      //     ),
-        body:  ListView.builder(
-                  itemCount: coins.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      child: CoinBox(coin: coins[index]),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context) => DetailWalletScreen(coin: coins[index],)
-                            )
-                        );
-                      },
-                    );
-                  })
-        //],
-      //)
+      backgroundColor: const Color.fromRGBO(32, 43, 71, 1),
+      body: Column(
+        children:  [
+          const SizedBox(
+            height: 25,
+          ),
+          const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search, color: Colors.white,),
+                  fillColor: Color.fromRGBO(52, 68, 111, 0.5),
+                  labelText: "Search...",
+                  labelStyle: TextStyle(color: Colors.white),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  ),
+                ),
+              )
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          ListCoin(),
+        ]
+      )
     );
+  }
+
+}
+
+class ListCoin extends StatelessWidget {
+
+  ListCoin({Key? key}) : super(key: key);
+
+  final coins = InfoCoin.getList();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: SizedBox(
+          height: 80,
+          child: ListView.builder(
+              itemCount: coins.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  child: CoinBox(coin: coins[index]),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailWalletScreen(coin: coins[index],)
+                        )
+                    );
+                  },
+                );
+              }),
+        ));
   }
 
 }

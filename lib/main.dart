@@ -1,12 +1,18 @@
+import 'package:atomic/ui/screen/history.dart';
+import 'package:atomic/ui/screen/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import '../ui/component.dart';
 import '../ui/screen/home.dart';
+import '../ui/screen/settings.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -15,47 +21,111 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wallet Cryptocurrency',
+      title: 'Atomic Wallet',
       home: MainApp(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-enum TabItem { home, history, notification, setting }
+enum TabItem { home, history, convert, buy }
 
 class MainApp extends StatefulWidget {
+  const MainApp({Key? key}) : super(key: key);
+
   @override
   _MainAppState createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
   TabItem _currentItem = TabItem.home;
   final List<TabItem> _bottomTabs = [
     TabItem.home,
     TabItem.history,
-    TabItem.notification,
-    TabItem.setting
+    TabItem.convert,
+    TabItem.buy
   ];
+
+  final Future<String> _calculation = Future<String>.delayed(
+    const Duration(seconds: 5),
+        () => "loaded",
+  );
+
+  late AnimationController animation;
+  late Animation<double> _fadeInFadeOut;
+
+  @override
+  void initState() {
+    super.initState();
+    animation = AnimationController(vsync: this, duration: Duration(seconds: 3),);
+    _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
+
+    animation.addStatusListener((status){
+      if(status == AnimationStatus.completed){
+        animation.reverse();
+      }
+      else if(status == AnimationStatus.dismissed){
+        animation.forward();
+      }
+    });
+    animation.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
-        child: SafeArea(
-          child: appBar(
-              left: Icon(Icons.notes, color: Colors.white),
-              title: 'Wallets',
-              right: Icon(Icons.settings, color: Colors.white)),
-        ),
-      ),
-      body: _buildScreen(),
-      bottomNavigationBar: _bottomNavigationBar(),
-    );
+    return FutureBuilder<String>(
+        future: _calculation,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              backgroundColor: Colors.blueGrey[50],
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(100.0),
+                child: SafeArea(
+                  child: appBar(
+                      left: const Icon(Icons.notes, color: Colors.white),
+                      title: "0.00 \$",
+                      right: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings()));
+                        },
+                        child: const Icon(Icons.settings, color: Colors.white)),
+                      ),
+                ),
+              ),
+              body: _buildScreen(),
+              bottomNavigationBar: _bottomNavigationBar(),
+            );
+          } else {
+            return FadeTransition(
+                opacity: _fadeInFadeOut,
+                child: Container(
+                    width: 225,
+                    height: 225,
+                    color: const Color.fromRGBO(32, 43, 71, 1),
+                    child: Center(
+                      child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                                child: Container(
+                                    width: 225,
+                                    height: 225,
+                                    decoration: const BoxDecoration(
+                                      image : DecorationImage(
+                                          image: AssetImage('assets/images/atomic.png'),
+                                          fit: BoxFit.fitWidth
+                                      ),
+                                    )
+                                )
+                            ),
+                          ]
+                      ),
+                    )
+                )
+            );
+          }
+        });
   }
-
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
@@ -68,8 +138,7 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  BottomNavigationBarItem _bottomNavigationBarItem(
-      IconData icon, TabItem tabItem) {
+  BottomNavigationBarItem _bottomNavigationBarItem(IconData icon, TabItem tabItem) {
     final Color color =
     _currentItem == tabItem ? Colors.black54 : Colors.black26;
 
@@ -90,10 +159,10 @@ class _MainAppState extends State<MainApp> {
         return Icons.account_balance_wallet;
       case TabItem.history:
         return Icons.history;
-      case TabItem.notification:
-        return Icons.notifications;
-      case TabItem.setting:
-        return Icons.settings;
+      case TabItem.convert:
+        return Iconsax.convert_card;
+      case TabItem.buy:
+        return Iconsax.buy_crypto;
       default:
         throw 'Unknown $item';
     }
@@ -102,12 +171,12 @@ class _MainAppState extends State<MainApp> {
   Widget _buildScreen() {
     switch (_currentItem) {
       case TabItem.home:
-        return HomeScreen();
+        return const HomeScreen();
       case TabItem.history:
-      // return HomeScreen();
-      case TabItem.notification:
-      // return HomeScreen()
-      case TabItem.setting:
+        return const History();
+      case TabItem.convert:
+        //return Settings();
+      case TabItem.buy:
       // return HomeScreen()
       default:
         return HomeScreen();
