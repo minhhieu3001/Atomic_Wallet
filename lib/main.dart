@@ -1,3 +1,5 @@
+import 'package:atomic/ui/screen/buy.dart';
+import 'package:atomic/ui/screen/exchange.dart';
 import 'package:atomic/ui/screen/history.dart';
 import 'package:atomic/ui/screen/settings.dart';
 import 'package:flutter/material.dart';
@@ -175,11 +177,12 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
       case TabItem.history:
         return const History();
       case TabItem.convert:
-        //return Settings();
+        return const Exchange();
       case TabItem.buy:
-      // return HomeScreen()
+       return Buy();
       default:
         return HomeScreen();
     }
   }
+
 }

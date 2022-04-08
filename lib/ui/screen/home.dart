@@ -2,6 +2,8 @@ import 'package:atomic/InfoCoin.dart';
 import 'package:flutter/material.dart';
 import '/ui/component.dart';
 import '/ui/screen/detail_wallet.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 class InfoCoin {
   final String url, name;
-  final double price, percent, balance, profit;
+  final double price, percent, balance, profit ;
   InfoCoin(this.url, this.name, this.price, this.percent, this.balance, this.profit);
 
   static List<InfoCoin> getList() {
@@ -71,7 +71,7 @@ class InfoCoin {
             0)
     );
 
-    return coins;
-  }
+   return coins;
+ }
 
 }

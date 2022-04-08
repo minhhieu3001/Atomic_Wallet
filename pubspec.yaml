@@ -37,6 +37,7 @@ dependencies:
   fl_chart: ^0.20.1
   iconsax: ^0.0.8
   http: ^0.13.4
+  http_parser: ^4.0.0
 
 dev_dependencies:
   flutter_test:
