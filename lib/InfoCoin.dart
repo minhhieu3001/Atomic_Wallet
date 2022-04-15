@@ -1,77 +1,24 @@
-class InfoCoin {
-  final String url, name;
-  final double price, percent, balance, profit ;
-  InfoCoin(this.url, this.name, this.price, this.percent, this.balance, this.profit);
+import 'package:flutter/material.dart';
 
-  static List<InfoCoin> getList() {
-    List<InfoCoin> coins = <InfoCoin>[];
-    coins.add(
-      InfoCoin(
-          "https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Bitcoin-icon.png",
-          "BTC",
-          39394.14,
-          -7.6,
-          0,
-          0)
-    );
-    coins.add(
-      InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-          "ETH",
-          3415.74,
-          2.76,
-          0,
-          0)
-    );
-    coins.add(
-        InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-            "ETH",
-            3415.74,
-            2.76,
-            0,
-            0)
-    );
-    coins.add(
-        InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-            "ETH",
-            3415.74,
-            2.76,
-            0,
-            0)
-    );
-    coins.add(
-        InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-            "ETH",
-            3415.74,
-            2.76,
-            0,
-            0)
-    );
-    coins.add(
-        InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-            "ETH",
-            3415.74,
-            2.76,
-            0,
-            0)
-    );
-    coins.add(
-        InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-            "ETH",
-            3415.74,
-            2.76,
-            0,
-            0)
-    );
-    coins.add(
-        InfoCoin("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency/128/Ethereum-icon.png",
-            "ETH",
-            3415.74,
-            2.76,
-            0,
-            0)
-    );
+class Coin {
+  Coin({required this.name,required this.symbol,required this.imageUrl,required this.price,required this.change,required this.changePercentage,});
 
-   return coins;
- }
+  String name;
+  String imageUrl;
+  num price;
+  num change;
+  num changePercentage;
 
+  factory Coin.fromJson(Map<String, dynamic> json) {
+    return Coin(
+      name: json['name'],
+      symbol: json['symbol'],
+      imageUrl: json['image'],
+      price: json['current_price'],
+      change: json['price_change_24h'],
+      changePercentage: json['price_change_percentage_24h'],
+    );
+  }
 }
+
+List<Coin> coinList = [];
