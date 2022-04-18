@@ -1,18 +1,40 @@
 import 'package:atomic/InfoCoin.dart';
 import 'package:flutter/material.dart';
-import '/ui/component.dart';
-import '/ui/screen/detail_wallet.dart';
-import 'dart:convert' as convert;
+import '../component/listCoin.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+List<InfoCoin> parseCoins(String responseBody) {
+  var list = json.decode(responseBody) as List<dynamic>;
+  List<InfoCoin> coins = list.map((model) => InfoCoin.fromJson(model)).toList();
+  return coins;
+}
+
+Future<List<InfoCoin>> fetchCoin() async {
+  List<InfoCoin> coins = [];
+  final response = await http.get(Uri.parse(
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'));
+
+  if (response.statusCode == 200) {
+    return compute(parseCoins, response.body);
+  } else {
+    throw Exception('Failed to load coins');
+  }
+}
+
 class _HomeScreenState extends State<HomeScreen> {
+
+  Future<List<InfoCoin>> coins = fetchCoin();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 15,
           ),
-          ListCoin(),
+          FutureBuilder<List<InfoCoin>>(future: coins, builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if(snapshot.hasData) {
+                return ListCoin(coins: snapshot.data);
+              } else {
+                return CircularProgressIndicator();
+              }
+          })
         ]
       )
     );
@@ -48,75 +76,5 @@ class _HomeScreenState extends State<HomeScreen> {
 
 }
 
-class ListCoin extends StatelessWidget {
 
-  ListCoin({Key? key}) : super(key: key);
 
-  final coins = InfoCoin.getList();
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: SizedBox(
-          height: 80,
-          child: ListView.builder(
-              itemCount: coins.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  child: CoinBox(coin: coins[index]),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailWalletScreen(coin: coins[index],)
-                        )
-                    );
-                  },
-                );
-              }),
-        ));
-  }
-
-}
-
-class CoinBox extends StatelessWidget {
-  const CoinBox({Key? key, required this.coin}) : super(key: key);
-  final InfoCoin coin;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      height: 100,
-      child: Card(
-        color: const Color.fromRGBO(52, 68, 111, 1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            const SizedBox(width: 15,),
-            Image.network(coin.url, width: 50,),
-            const SizedBox(width: 15,),
-            Expanded(child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(coin.name, style:const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                Text(coin.price.toString(), style: const TextStyle(color: Colors.white)),
-                Text("( " + coin.percent.toString() + " % )", style: TextStyle(color: (coin.percent >=0 ? Colors.green : Colors.redAccent),))
-              ],
-            )),
-            const SizedBox(width: 25,),
-            Expanded(child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(coin.balance.toString(), style: const TextStyle(color: Colors.white)),
-                Text("\$" + coin.profit.toString(), style: const TextStyle(color: Colors.white54)),
-              ],
-            )),
-            const SizedBox(width: 10,)
-          ],
-        )
-      ),
-    );
-  }
-}

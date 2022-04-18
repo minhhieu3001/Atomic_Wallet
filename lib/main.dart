@@ -8,6 +8,7 @@ import '../ui/component.dart';
 import '../ui/screen/home.dart';
 import '../ui/screen/settings.dart';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -32,6 +33,7 @@ class _MyAppState extends State<MyApp> {
 
 enum TabItem { home, history, convert, buy }
 
+
 class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
 
@@ -48,6 +50,7 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
     TabItem.buy
   ];
 
+
   final Future<String> _calculation = Future<String>.delayed(
     const Duration(seconds: 5),
         () => "loaded",
@@ -59,7 +62,9 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    animation = AnimationController(vsync: this, duration: Duration(seconds: 3),);
+    //fetchCoin();
+    //Timer.periodic(const Duration(seconds: 10), (timer) => fetchCoin());
+    animation = AnimationController(vsync: this, duration: const Duration(seconds: 3),);
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
 
     animation.addStatusListener((status){
@@ -131,6 +136,7 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
+      backgroundColor: Color.fromRGBO(52, 68, 111, 0.5),
       items: _bottomTabs
           .map((tabItem) => _bottomNavigationBarItem(_icon(tabItem), tabItem))
           .toList(),
@@ -142,7 +148,7 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
 
   BottomNavigationBarItem _bottomNavigationBarItem(IconData icon, TabItem tabItem) {
     final Color color =
-    _currentItem == tabItem ? Colors.black54 : Colors.black26;
+    _currentItem == tabItem ? Colors.black12 : Colors.white60;
 
     return BottomNavigationBarItem(icon: Icon(icon, color: color), label: '');
   }
@@ -177,7 +183,7 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
       case TabItem.history:
         return const History();
       case TabItem.convert:
-        return const Exchange();
+        return Exchange();
       case TabItem.buy:
        return Buy();
       default:

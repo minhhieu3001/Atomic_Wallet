@@ -1,3 +1,4 @@
+import 'package:atomic/ui/screen/buy.dart';
 import 'package:flutter/material.dart';
 import '/ui/component.dart';
 import '/ui/screen/detail_wallet.dart';

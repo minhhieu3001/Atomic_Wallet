@@ -1,8 +1,40 @@
-import 'package:atomic/ui/screen/history.dart';
+import 'package:atomic/ui/screen/chooseCoin.dart';
 import 'package:flutter/material.dart';
+import '../../InfoCoin.dart';
 
-class Exchange extends StatelessWidget {
+class Exchange extends StatefulWidget {
   const Exchange({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ExchangeState();
+}
+
+
+class _ExchangeState extends State<Exchange> {
+
+  String value = '';
+
+  InfoCoin curCoin = InfoCoin(imageUrl: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+      name: "btc", price: 40232, percent: 1.87614, balance: 0, profit: 0, highest: 41004, lowest: 39444);
+  InfoCoin newCoin = InfoCoin(imageUrl: "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+      name: "eth", price: 3047.02, percent: 0.284, balance: 0, profit: 0, highest: 3080.4, lowest: 2961.52);
+
+  void settingValue(String text) {
+    var number = text == "" ? 0 : double.parse(text);
+    setState(() {
+      if(number == 0 ) {
+        value = '0';
+      } else {
+        value = (number * curCoin.price / newCoin.price).toString().substring(0, 10);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,39 +49,51 @@ class Exchange extends StatelessWidget {
               Icon(Icons.history),
             ],
           ),
+          SizedBox(height: 20,),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             height: 120,
             child: Card(
-              color: const Color.fromRGBO(80, 104, 168, 1),
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                const SizedBox(width: 15,),
-                Expanded(child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text("You send:", style:TextStyle(color: Colors.white)),
-                    Padding(
-                      padding: EdgeInsets.only(right: 200),
+                color: const Color.fromRGBO(80, 104, 168, 1),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    const SizedBox(width: 15,),
+                    Expanded(
                       child: TextField(
-                              decoration: InputDecoration(
-                              labelText: "0",
-                              labelStyle: TextStyle(color: Colors.white),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white, width: 1.0),
+                        onChanged: (text) {
+                            settingValue(text);
+                        },
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        textInputAction: TextInputAction.send,
+                        decoration: const InputDecoration(
+                          labelText: "You send",
+                          labelStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white, width: 1.0),
                           ),
                         ),
-                      )),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 25,),
-                Expanded(child: chooseButton(name: "ETH"))
-              ],
-            )
-          ),
+                      ),
+                    ),
+                    const SizedBox(width: 20,),
+                    RaisedButton(
+                      color: const Color.fromRGBO(80, 104, 168, 1),
+                          onPressed: () {
+                            displayCurCoinScreen(context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.network(curCoin.imageUrl, width: 50,),
+                              const SizedBox(width: 10,),
+                              Text(curCoin.name.toUpperCase(), style: const TextStyle(color: Colors.white),),
+                              const Icon(Icons.arrow_drop_down)
+                            ],
+                          ),
+                        )
+                  ],
+                )
+            ),
           ),
           const Center(child: Icon(Icons.arrow_circle_down, size: 40,color: Colors.white60,)),
           Container(
@@ -61,59 +105,44 @@ class Exchange extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     const SizedBox(width: 15,),
-                    Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("You send:", style:TextStyle(color: Colors.white)),
-                        Padding(
-                            padding: EdgeInsets.only(right: 200),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  labelText: "0",
-                                  labelStyle: TextStyle(color: Colors.white),
-                              ),
-                            )),
-                      ],
+                    Expanded(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("You receive: ", style: TextStyle(color: Colors.white),),
+                            Text(value, style: const TextStyle(color: Colors.white),)
+                          ]
+                      )
                     ),
-                    ),
-                    const SizedBox(width: 25,),
-                    Expanded(child: chooseButton(name: "BTC"))
+                    const SizedBox(width: 20,),
+                    RaisedButton(
+                      color: const Color.fromRGBO(191, 83, 174, 0.62),
+                      onPressed: () {
+                        displayNewCoinScreen(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.network(newCoin.imageUrl, width: 50,),
+                          const SizedBox(width: 10,),
+                          Text(newCoin.name.toUpperCase(), style: const TextStyle(color: Colors.white),),
+                          const Icon(Icons.arrow_drop_down)
+                        ],
+                      ),
+                    )
                   ],
                 )
             ),
           ),
-          SizedBox(height: 15,),
-          Row(
-            children: [
-              SizedBox(width: 15,),
-              Column(
-                children: [
-                  Text("You have:", style: TextStyle(color: Colors.white60, fontSize: 20)),
-                  Text("0 ETH",style: TextStyle(color: Colors.white, fontSize: 20),),
-                ],
-              ),
-              SizedBox(width: 150,),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all( Radius.circular(30)),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 3,
-                  ),
-                ),
-                child: Text("SEND ALL", style: const TextStyle(color: Colors.white, fontSize: 18),),
-              )
-            ],
-          ),
-          SizedBox(height: 80,),
+          const SizedBox(height: 120,),
           SizedBox(
             height: 60,
             width: 350,
             child: RaisedButton(color: const Color.fromRGBO(139, 136, 136, 0.3),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-              onPressed: (){},
+              onPressed: (){
+//?
+              },
               child: const Text("EXCHANGE", style: TextStyle(color: Colors.white24, fontSize: 20),),
             ),
           )
@@ -121,18 +150,19 @@ class Exchange extends StatelessWidget {
       ),
     );
   }
-  Widget chooseButton({required String name}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-      child: Row(
-        children: [
-          //image
-          Text(name, style: const TextStyle(color: Colors.white),),
-          const SizedBox(width: 10,),
-          const Icon(Icons.keyboard_arrow_down_outlined)
-        ],
-      )
-    );
+
+  void displayCurCoinScreen(BuildContext context) async {
+      final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCoin()),);
+      setState(() {
+        curCoin = result;
+      });
+  }
+
+  void displayNewCoinScreen(BuildContext context) async {
+    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCoin()),);
+    setState(() {
+      newCoin = result;
+    });
   }
 }
 

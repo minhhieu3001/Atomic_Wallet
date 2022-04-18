@@ -104,7 +104,7 @@ class DetailWalletScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.network(coin.url, width: 50,),
+            Image.network(coin.imageUrl, width: 50,),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +117,7 @@ class DetailWalletScreen extends StatelessWidget {
             Text(coin.profit.toString(), style: const TextStyle(color: Colors.white, fontSize: 30),),
             Row(
               children: [
-                const Text("\$ 31.11", style: TextStyle(color: Colors.white54),),
+                Text(coin.highest.toString(), style: TextStyle(color: Colors.white54),),
                 const SizedBox(width: 50,),
                 Text(coin.price.toString() + "(" + coin.percent.toString() + "%)", style: const TextStyle(color: Colors.white54))
               ],
@@ -141,8 +141,8 @@ class DetailWalletScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text("\$ 27.7",style: TextStyle(color: Colors.white54),),
+              children:  [
+                Text(coin.lowest.toString(),style: TextStyle(color: Colors.white54),),
               ],
             ),
             const SizedBox(height: 10,),

@@ -1,7 +1,37 @@
 import 'package:flutter/material.dart';
 
-class Buy extends StatelessWidget {
+import '../../InfoCoin.dart';
+import 'chooseCoin.dart';
+
+class Buy extends StatefulWidget {
   const Buy({Key? key}) : super(key: key);
+
+  @override
+  State<Buy> createState() => _BuyState();
+}
+
+class _BuyState extends State<Buy> {
+
+  String value = '';
+
+  InfoCoin newCoin = InfoCoin(imageUrl: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+      name: "btc", price: 40232, percent: 1.87614, balance: 0, profit: 0, highest: 41004, lowest: 39444);
+
+  void settingValue(String text) {
+    var number = text == "" ? 0 : double.parse(text);
+    setState(() {
+      if(number == 0 ) {
+        value = '0';
+      } else {
+        value = (number / newCoin.price).toString().substring(0, 10);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +41,15 @@ class Buy extends StatelessWidget {
         children:  [
           Row(
             children: const [
-              SizedBox(width: 140,),
-              Text("Buy crypto", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),),
+              SizedBox(width: 150,),
+              Text("Buy", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),),
               SizedBox(width: 100,),
-              Icon(Icons.history,  color: Colors.white,size: 30,)
+              Icon(Icons.history),
             ],
           ),
+          SizedBox(height: 20,),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             height: 120,
             child: Card(
                 color: const Color.fromRGBO(80, 104, 168, 1),
@@ -26,24 +57,37 @@ class Buy extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     const SizedBox(width: 15,),
-                    Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("You send:", style:TextStyle(color: Colors.white)),
-                        Padding(
-                            padding: EdgeInsets.only(right: 200),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                labelText: "0",
-                                labelStyle: TextStyle(color: Colors.white),
-                              ),
-                            )),
-                      ],
+                    Expanded(
+                      child: TextField(
+                        onChanged: (text) {
+                          settingValue(text);
+                        },
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        textInputAction: TextInputAction.send,
+                        decoration: const InputDecoration(
+                          labelText: "You send",
+                          labelStyle: TextStyle(color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          ),
+                        ),
+                      ),
                     ),
-                    ),
-                    const SizedBox(width: 25,),
-                    Expanded(child: chooseButton(name: "USD"))
+                    const SizedBox(width: 20,),
+                    RaisedButton(
+                      color: const Color.fromRGBO(80, 104, 168, 1),
+                      onPressed: () {
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.network("https://icon2.cleanpng.com/20180730/uee/kisspng-logo-united-states-dollar-money-green-tick-with-transparent-background-5b5ebca401c266.2114332415329353320072.jpg", width: 50,),
+                          const SizedBox(width: 10,),
+                          const Text("USD", style: TextStyle(color: Colors.white),),
+                          const SizedBox(width: 10,),
+                        ],
+                      ),
+                    )
                   ],
                 )
             ),
@@ -58,53 +102,56 @@ class Buy extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     const SizedBox(width: 15,),
-                    Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("You send:", style:TextStyle(color: Colors.white)),
-                        Padding(
-                            padding: EdgeInsets.only(right: 200),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                labelText: "0",
-                                labelStyle: TextStyle(color: Colors.white),
-                              ),
-                            )),
-                      ],
+                    Expanded(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("You receive: ", style: TextStyle(color: Colors.white),),
+                              Text(value, style: const TextStyle(color: Colors.white),),
+                            ]
+                        )
                     ),
-                    ),
-                    const SizedBox(width: 25,),
-                    Expanded(child: chooseButton(name: "BTC"))
+                    const SizedBox(width: 20,),
+                    RaisedButton(
+                      color: const Color.fromRGBO(191, 83, 174, 0.62),
+                      onPressed: () {
+                        displayNewCoinScreen(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.network(newCoin.imageUrl, width: 50,),
+                          const SizedBox(width: 10,),
+                          Text(newCoin.name.toUpperCase(), style: const TextStyle(color: Colors.white),),
+                          const Icon(Icons.arrow_drop_down)
+                        ],
+                      ),
+                    )
                   ],
                 )
             ),
           ),
-          SizedBox(height: 150,),
+          const SizedBox(height: 120,),
           SizedBox(
             height: 60,
             width: 350,
             child: RaisedButton(color: const Color.fromRGBO(139, 136, 136, 0.3),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-              onPressed: (){},
-              child: const Text("BUY", style: TextStyle(color: Colors.white24, fontSize: 20),),
+              onPressed: (){
+//?
+              },
+              child: const Text("CONTINUE", style: TextStyle(color: Colors.white24, fontSize: 20),),
             ),
-          ),
+          )
         ],
       ),
     );
   }
-  Widget chooseButton({required String name}) {
-    return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        child: Row(
-          children: [
-            //image
-            Text(name, style: const TextStyle(color: Colors.white),),
-            const SizedBox(width: 10,),
-            const Icon(Icons.keyboard_arrow_down_outlined)
-          ],
-        )
-    );
+
+  void displayNewCoinScreen(BuildContext context) async {
+    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCoin()),);
+    setState(() {
+      newCoin = result;
+    });
   }
 }

@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-class Coin {
-  Coin({required this.name,required this.symbol,required this.imageUrl,required this.price,required this.change,required this.changePercentage,});
+class InfoCoin {
+  String imageUrl, name;
+  num price, percent, balance, profit, highest, lowest ;
+  InfoCoin({required this.imageUrl, required this.name, required this.price, required this.percent,
+    required this.balance, required this.profit, required this.highest, required this.lowest} );
 
-  String name;
-  String imageUrl;
-  num price;
-  num change;
-  num changePercentage;
-
-  factory Coin.fromJson(Map<String, dynamic> json) {
-    return Coin(
-      name: json['name'],
-      symbol: json['symbol'],
-      imageUrl: json['image'],
-      price: json['current_price'],
-      change: json['price_change_24h'],
-      changePercentage: json['price_change_percentage_24h'],
-    );
+  factory InfoCoin.fromJson(Map<String, dynamic> json) {
+    return InfoCoin(
+        imageUrl: json['image'],
+        name: json['symbol'],
+        price: json['current_price'],
+        percent: json['price_change_percentage_24h'],
+        balance: 0,
+        profit: 0,
+        highest: json['high_24h'],
+        lowest: json['low_24h'],);
   }
-}
 
-List<Coin> coinList = [];
+  List<InfoCoin> coins = [];
+
+}
