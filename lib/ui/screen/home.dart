@@ -14,19 +14,14 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-List<InfoCoin> parseCoins(String responseBody) {
-  var list = json.decode(responseBody) as List<dynamic>;
-  List<InfoCoin> coins = list.map((model) => InfoCoin.fromJson(model)).toList();
-  return coins;
-}
-
 Future<List<InfoCoin>> fetchCoin() async {
-  List<InfoCoin> coins = [];
   final response = await http.get(Uri.parse(
       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'));
 
   if (response.statusCode == 200) {
-    return compute(parseCoins, response.body);
+    var list = json.decode(response.body) as List<dynamic>;
+    List<InfoCoin> coins = list.map((model) => InfoCoin.fromJson(model)).toList();
+    return coins;
   } else {
     throw Exception('Failed to load coins');
   }
@@ -34,7 +29,23 @@ Future<List<InfoCoin>> fetchCoin() async {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Future<List<InfoCoin>> coins = fetchCoin();
+  TextEditingController _searchValue = new TextEditingController();
+
+  Future<List<InfoCoin>> updateList(String value) async {
+    List<InfoCoin> list = await fetchCoin();
+    List<InfoCoin> rs = [];
+    if(value == "") {
+      return list;
+    } else {
+      for (InfoCoin i in list) {
+        if (i.name.contains(value)) {
+          rs.add(i);
+        }
+      }
+      return rs;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 25,
           ),
-          const Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+          Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                decoration: InputDecoration(
+                style: TextStyle(color: Colors.white),
+                controller: _searchValue,
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search, color: Colors.white,),
+                  filled: true,
                   fillColor: Color.fromRGBO(52, 68, 111, 0.5),
                   labelText: "Search...",
                   labelStyle: TextStyle(color: Colors.white),
@@ -62,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 15,
           ),
-          FutureBuilder<List<InfoCoin>>(future: coins, builder: (BuildContext context, AsyncSnapshot snapshot) {
+          FutureBuilder<List<InfoCoin>>(future: updateList(_searchValue.text), builder: (BuildContext context, AsyncSnapshot snapshot) {
               if(snapshot.hasData) {
                 return ListCoin(coins: snapshot.data);
               } else {

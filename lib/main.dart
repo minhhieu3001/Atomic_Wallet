@@ -1,13 +1,14 @@
 import 'package:atomic/ui/screen/buy.dart';
 import 'package:atomic/ui/screen/exchange.dart';
 import 'package:atomic/ui/screen/history.dart';
+import 'package:atomic/ui/screen/login.dart';
 import 'package:atomic/ui/screen/settings.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../ui/component.dart';
 import '../ui/screen/home.dart';
 import '../ui/screen/settings.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -21,18 +22,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Future<FirebaseApp> _initializeFireBase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Atomic Wallet',
-      home: MainApp(),
+      home: FutureBuilder(
+        future: _initializeFireBase(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return LoginPage();
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 enum TabItem { home, history, convert, buy }
-
 
 class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
@@ -41,7 +54,7 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
+class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
   TabItem _currentItem = TabItem.home;
   final List<TabItem> _bottomTabs = [
     TabItem.home,
@@ -50,10 +63,9 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
     TabItem.buy
   ];
 
-
   final Future<String> _calculation = Future<String>.delayed(
     const Duration(seconds: 5),
-        () => "loaded",
+    () => "loaded",
   );
 
   late AnimationController animation;
@@ -64,14 +76,16 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
     super.initState();
     //fetchCoin();
     //Timer.periodic(const Duration(seconds: 10), (timer) => fetchCoin());
-    animation = AnimationController(vsync: this, duration: const Duration(seconds: 3),);
+    animation = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
 
-    animation.addStatusListener((status){
-      if(status == AnimationStatus.completed){
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
         animation.reverse();
-      }
-      else if(status == AnimationStatus.dismissed){
+      } else if (status == AnimationStatus.dismissed) {
         animation.forward();
       }
     });
@@ -90,14 +104,17 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
                 preferredSize: Size.fromHeight(100.0),
                 child: SafeArea(
                   child: appBar(
-                      left: const Icon(Icons.notes, color: Colors.white),
-                      title: "0.00 \$",
-                      right: GestureDetector(
+                    left: const Icon(Icons.notes, color: Colors.white),
+                    title: "0.00 \$",
+                    right: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Settings()));
                         },
                         child: const Icon(Icons.settings, color: Colors.white)),
-                      ),
+                  ),
                 ),
               ),
               body: _buildScreen(),
@@ -111,28 +128,23 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
                     height: 225,
                     color: const Color.fromRGBO(32, 43, 71, 1),
                     child: Center(
-                      child: Stack(
-                          children: <Widget>[
-                            Positioned(
-                                child: Container(
-                                    width: 225,
-                                    height: 225,
-                                    decoration: const BoxDecoration(
-                                      image : DecorationImage(
-                                          image: AssetImage('assets/images/atomic.png'),
-                                          fit: BoxFit.fitWidth
-                                      ),
-                                    )
-                                )
-                            ),
-                          ]
-                      ),
-                    )
-                )
-            );
+                      child: Stack(children: <Widget>[
+                        Positioned(
+                            child: Container(
+                                width: 225,
+                                height: 225,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/atomic.png'),
+                                      fit: BoxFit.fitWidth),
+                                ))),
+                      ]),
+                    )));
           }
         });
   }
+
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
@@ -146,9 +158,10 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
     );
   }
 
-  BottomNavigationBarItem _bottomNavigationBarItem(IconData icon, TabItem tabItem) {
+  BottomNavigationBarItem _bottomNavigationBarItem(
+      IconData icon, TabItem tabItem) {
     final Color color =
-    _currentItem == tabItem ? Colors.black12 : Colors.white60;
+        _currentItem == tabItem ? Colors.black12 : Colors.white60;
 
     return BottomNavigationBarItem(icon: Icon(icon, color: color), label: '');
   }
@@ -185,10 +198,9 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin{
       case TabItem.convert:
         return Exchange();
       case TabItem.buy:
-       return Buy();
+        return Buy();
       default:
         return HomeScreen();
     }
   }
-
 }

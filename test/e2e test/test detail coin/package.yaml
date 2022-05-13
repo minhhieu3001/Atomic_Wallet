@@ -1,0 +1,232 @@
+id: rFHs31qpyEqbzDvN5l3IAw
+projectId: eWuoNdHvKEOXGEdhL3Lxpg
+projectName: My first Project
+created: 2022-05-13T06:45:54.9144570Z
+owner: Minh Hiếu Bùi
+protocol: 1
+tests:
+- id: JY4ueUZUPUmStCFUQfiJ2w
+  name: Atomic
+  description: detail coin
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-04-29T07:09:13.0000000
+  modificationDate: 2022-04-29T07:16:07.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: dkKf0ZrUfU2-3xcSkugTcg
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: dkKf0ZrUfU2-3xcSkugTcg
+    androidActivity: com.example.atomic.MainActivity
+    androidPackage: com.example.atomic
+    name: Atomic Waleet
+    platform: Android
+  steps:
+  - id: YIfrV1peqkq2zayJHAwP1Q
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    elementId: 1_m3tDLyHU2fVqhyRTJgWw
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: pkBgpk4uNUC6pnm9ozYw_Q
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: chptAqn50EuHSvoKCUQFuw
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: L12960F6qUydYTANL4pgYQ
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 144af44b-2c26-4c8b-b5e6-7c6b7d6cad72
+      source: System
+    parameterMaps:
+    - name: startX
+      value: 623
+      direction: Input
+    - name: startY
+      value: 1434
+      direction: Input
+    - name: endX
+      value: 616
+      direction: Input
+    - name: endY
+      value: 761
+      direction: Input
+    - name: duration
+      value: 300
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: PWq-jCDUUku43tmMVDdvwg
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: tsEyieWXGEWeFcrEtEVweg
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: M4tcxXp5S0eDtFRNIJyhqw
+    enabled: true
+    invertResult: false
+    order: 5
+    repeat: 1
+    type: Action
+    elementId: chptAqn50EuHSvoKCUQFuw
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: 1_m3tDLyHU2fVqhyRTJgWw
+  name: >-
+    BTC
+
+    39484 $
+
+    ( 0.17838 % )
+
+    0
+
+    $0
+  type:
+    id: jUwODgyNjAyNzk2NTk3MjI
+    name: android.widget.ImageView
+    source: System
+  locators:
+  - name: XPATH
+    value: >-
+      //android.widget.ImageView[@content-desc = 'BTC
+
+      39484 $
+
+      ( 0.17838 % )
+
+      0
+
+      $0']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[1]/android.widget.ImageView
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View[1]/android.view.View[1]/android.widget.ImageView[1]
+    priority: 2
+- id: chptAqn50EuHSvoKCUQFuw
+  name: ANDROID.VIEW.VIEW
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[1]
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]
+    priority: 1
+- id: tsEyieWXGEWeFcrEtEVweg
+  name: >-
+    USDC
+
+    0.998786 $
+
+    ( 0.01671 % )
+
+    0
+
+    $0
+  type:
+    id: jUwODgyNjAyNzk2NTk3MjI
+    name: android.widget.ImageView
+    source: System
+  locators:
+  - name: XPATH
+    value: >-
+      //android.widget.ImageView[@content-desc = 'USDC
+
+      0.998786 $
+
+      ( 0.01671 % )
+
+      0
+
+      $0']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[3]/android.widget.ImageView
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View[1]/android.view.View[3]/android.widget.ImageView[1]
+    priority: 2
+projectParameters: []
+addons: []
