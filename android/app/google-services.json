@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "269757129695",
+    "project_id": "atomic-f162b",
+    "storage_bucket": "atomic-f162b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269757129695:android:c74605b9928d418cae9a6a",
+        "android_client_info": {
+          "package_name": "com.example.atomic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269757129695-mdjv77e0plq1knoduvuokhoqbabkpvs0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ1LWF7iFB3C883NX_BeLqEj6K4OnYgP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269757129695-mdjv77e0plq1knoduvuokhoqbabkpvs0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
