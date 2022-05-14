@@ -87,8 +87,7 @@ class _SignupPageState extends State<SignupPage> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                   onPressed: (){
                     if(_passwordController.text != _confirmPasswordController.text) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignupPage()));
+                      showMyAlertDialog(context);
                     } else {
                       if (_formKey.currentState != null) {
                         _signUp();
@@ -116,5 +115,27 @@ class _SignupPageState extends State<SignupPage> {
       print("exception");
     }
 
+  }
+
+  showMyAlertDialog(BuildContext context) {
+    // Create AlertDialog
+    AlertDialog dialog = AlertDialog(
+      title: Text("Error"),
+      content: Text("Confirmation password is different from password!"),
+      actions: [
+        ElevatedButton(
+            child: Text("Continue"),
+            onPressed: (){
+              Navigator.of(context).pop(); // Return value
+            }
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      },
+    );
   }
 }

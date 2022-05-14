@@ -14,37 +14,66 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-Future<List<InfoCoin>> fetchCoin() async {
+Future<List<InfoCoin>> fetchCoin(String searchValue) async {
   final response = await http.get(Uri.parse(
       'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'));
 
   if (response.statusCode == 200) {
-    var list = json.decode(response.body) as List<dynamic>;
+    final List list = json.decode(response.body);
     List<InfoCoin> coins = list.map((model) => InfoCoin.fromJson(model)).toList();
-    return coins;
+    if(searchValue == "") {
+      return coins;
+    } else {
+      List<InfoCoin> rs = [];
+      for(InfoCoin i in coins) {
+        if(i.name.toLowerCase().contains(searchValue)) {
+          rs.add(i);
+        }
+      }
+      return rs;
+    }
   } else {
     throw Exception('Failed to load coins');
   }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Timer? debouncer;
 
-  TextEditingController _searchValue = new TextEditingController();
+  // TextEditingController _searchValue = new TextEditingController();
+  String _searchValue = "";
 
-  Future<List<InfoCoin>> updateList(String value) async {
-    List<InfoCoin> list = await fetchCoin();
-    List<InfoCoin> rs = [];
-    if(value == "") {
-      return list;
-    } else {
-      for (InfoCoin i in list) {
-        if (i.name.contains(value)) {
-          rs.add(i);
-        }
-      }
-      return rs;
-    }
+  List<InfoCoin> coins = [];
+
+  @override
+  void initState() {
+    super.initState();
+    init();
   }
+
+  @override
+  void dispose() {
+    debouncer?.cancel();
+    super.dispose();
+  }
+
+  void debounce(
+      VoidCallback callback, {
+        Duration duration = const Duration(milliseconds: 1000),
+      }) {
+    if (debouncer != null) {
+      debouncer!.cancel();
+    }
+
+    debouncer = Timer(duration, callback);
+  }
+
+  Future init() async {
+    final coins = await fetchCoin(_searchValue);
+
+    setState(() => this.coins = coins);
+  }
+
 
 
   @override
@@ -60,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
                 style: TextStyle(color: Colors.white),
-                controller: _searchValue,
+                onChanged: search,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search, color: Colors.white,),
                   filled: true,
@@ -76,18 +105,22 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 15,
           ),
-          FutureBuilder<List<InfoCoin>>(future: updateList(_searchValue.text), builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if(snapshot.hasData) {
-                return ListCoin(coins: snapshot.data);
-              } else {
-                return CircularProgressIndicator();
-              }
-          })
+          ListCoin(coins: coins)
         ]
       )
     );
   }
 
+  Future search(String searchValue) async => debounce(() async {
+    final coins = await fetchCoin(searchValue);
+
+    if (!mounted) return;
+
+    setState(() {
+      this._searchValue = _searchValue;
+      this.coins = coins;
+    });
+  });
 }
 
 

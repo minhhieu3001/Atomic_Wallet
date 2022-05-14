@@ -15,14 +15,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _imgPath = 'assets/images/atomic.png';
 
-  Future<User?> login({required String username, required String password, required BuildContext context}) async {
+  Future<User?> login(
+      {required String username, required String password, required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: username, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: username, password: password);
       user = userCredential.user;
-    } on FirebaseAuthException catch(e) {
-      if(e.code == "user-not-found") {
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
         print("no user found for that username");
       }
     }
@@ -31,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Scaffold(
@@ -87,9 +88,16 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     onPressed: () async {
-                      User? user = await login(username: _emailController.text, password: _passwordController.text, context: context);
-                      if(user != null) {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainApp()));
+                      User? user = await login(username: _emailController.text,
+                          password: _passwordController.text,
+                          context: context);
+                      if(user == null) {
+                        showMyAlertDialog(context);
+                      }
+                      if (user != null) {
+                        print(user);
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => MainApp()));
                       }
                     },
                     child: const Text(
@@ -112,7 +120,8 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Center(
                   child: GestureDetector(
-                    child: Text("Sign up here", style: TextStyle(color: Colors.redAccent, fontSize: 15),),
+                    child: Text("Sign up here",
+                      style: TextStyle(color: Colors.redAccent, fontSize: 15),),
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(
@@ -127,6 +136,28 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+    );
+  }
+
+  showMyAlertDialog(BuildContext context) {
+    // Create AlertDialog
+    AlertDialog dialog = AlertDialog(
+      title: Text("Error"),
+      content: Text("User or password is not correct!"),
+      actions: [
+        ElevatedButton(
+            child: Text("Continue"),
+            onPressed: (){
+              Navigator.of(context).pop(); // Return value
+            }
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      },
     );
   }
 }
