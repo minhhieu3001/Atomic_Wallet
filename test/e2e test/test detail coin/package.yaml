@@ -1,42 +1,42 @@
-id: rFHs31qpyEqbzDvN5l3IAw
+id: EE6sJDxuAkafGuUkryX5rQ
 projectId: eWuoNdHvKEOXGEdhL3Lxpg
 projectName: My first Project
-created: 2022-05-13T06:45:54.9144570Z
+created: 2022-05-18T09:02:49.7306766Z
 owner: Minh Hiếu Bùi
 protocol: 1
 tests:
-- id: JY4ueUZUPUmStCFUQfiJ2w
-  name: Atomic
-  description: detail coin
+- id: GQVn30l07ky1hJNEPcX1GA
+  name: Test view detail coin
+  description: xem chi tiết coin
   platform: Android
   type: Mobile
   driverType: Appium_Android
   version: 0.1
-  creationDate: 2022-04-29T07:09:13.0000000
-  modificationDate: 2022-04-29T07:16:07.0000000
+  creationDate: 2022-05-18T09:01:08.0000000
+  modificationDate: 2022-05-18T09:02:16.0000000
   settings:
     automationAssistant: true
-    deviceId: emulator-5554
-    appId: dkKf0ZrUfU2-3xcSkugTcg
+    deviceId: R58M33WNE5H
+    appId: JJdAr45SP0iSr82-O440Rg
     stepSleepTime: 500
     stepTimeout: 15000
     stepSleepTiming: Before
     stepFailureBehaviorType: Abort
     stepTakeScreenshotConditionType: Failure
   application:
-    id: dkKf0ZrUfU2-3xcSkugTcg
+    id: JJdAr45SP0iSr82-O440Rg
     androidActivity: com.example.atomic.MainActivity
     androidPackage: com.example.atomic
-    name: Atomic Waleet
+    name: Atomic Wallet 1
     platform: Android
   steps:
-  - id: YIfrV1peqkq2zayJHAwP1Q
+  - id: xt2IjfaefkG2ukDvSByHfg
+    comments: Clear application data and restart (Auto-generated)
     enabled: true
     invertResult: false
     order: 1
     repeat: 1
     type: Action
-    elementId: 1_m3tDLyHU2fVqhyRTJgWw
     settings:
       sleepTime: -1
       timeout: -1
@@ -44,19 +44,19 @@ tests:
       failureBehaviorType: Inherit
       takeScreenshotConditionType: Inherit
     action:
-      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      id: 1b89acc3-5003-4ae6-a8c1-c1732e09ef45
       source: System
     parameterMaps: []
     conditions: []
     validations: []
     contexts: []
-  - id: pkBgpk4uNUC6pnm9ozYw_Q
+  - id: om9J-tkJ6kie-b018ezSMw
     enabled: true
     invertResult: false
     order: 2
     repeat: 1
     type: Action
-    elementId: chptAqn50EuHSvoKCUQFuw
+    elementId: ij3QJNmwUEq0Q1LBBKTSlg
     settings:
       sleepTime: -1
       timeout: -1
@@ -70,12 +70,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: L12960F6qUydYTANL4pgYQ
+  - id: IzEj7Ghldk65LphGy8nOaA
     enabled: true
     invertResult: false
     order: 3
     repeat: 1
     type: Action
+    elementId: ij3QJNmwUEq0Q1LBBKTSlg
     settings:
       sleepTime: -1
       timeout: -1
@@ -83,34 +84,22 @@ tests:
       failureBehaviorType: Inherit
       takeScreenshotConditionType: Inherit
     action:
-      id: 144af44b-2c26-4c8b-b5e6-7c6b7d6cad72
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
       source: System
     parameterMaps:
-    - name: startX
-      value: 623
-      direction: Input
-    - name: startY
-      value: 1434
-      direction: Input
-    - name: endX
-      value: 616
-      direction: Input
-    - name: endY
-      value: 761
-      direction: Input
-    - name: duration
-      value: 300
+    - name: keys
+      value: hieu@gmail.com
       direction: Input
     conditions: []
     validations: []
     contexts: []
-  - id: PWq-jCDUUku43tmMVDdvwg
+  - id: wkiLl5pk_UyMg12K0BRTNQ
     enabled: true
     invertResult: false
     order: 4
     repeat: 1
     type: Action
-    elementId: tsEyieWXGEWeFcrEtEVweg
+    elementId: 5Ikj6Oo_n0KADiqmV0Pxog
     settings:
       sleepTime: -1
       timeout: -1
@@ -124,13 +113,56 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: M4tcxXp5S0eDtFRNIJyhqw
+  - id: AX8VaxEc6EWc_6zxY30ypw
     enabled: true
     invertResult: false
     order: 5
     repeat: 1
     type: Action
-    elementId: chptAqn50EuHSvoKCUQFuw
+    elementId: 5Ikj6Oo_n0KADiqmV0Pxog
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: hieu3001
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: LyboiHACbUmwDJ6cBW6Wbw
+    enabled: true
+    invertResult: false
+    order: 6
+    repeat: 1
+    type: Action
+    elementId: c-LxMbrpwkCIeu7KMsMcOQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: QZhldkpnx0-JDKJkuj1NaA
+    enabled: true
+    invertResult: false
+    order: 7
+    repeat: 1
+    type: Action
+    elementId: uZRDZfBntkSBhEXV3dge5A
     settings:
       sleepTime: -1
       timeout: -1
@@ -147,17 +179,65 @@ tests:
   parameters: []
 auxTests: []
 elements:
-- id: 1_m3tDLyHU2fVqhyRTJgWw
+- id: ij3QJNmwUEq0Q1LBBKTSlg
+  name: Email
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.EditText[@text = 'Email']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.EditText[1]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
+    priority: 2
+- id: 5Ikj6Oo_n0KADiqmV0Pxog
+  name: Password
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.EditText[@text = 'Password']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.EditText[2]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.widget.EditText[2]
+    priority: 2
+- id: c-LxMbrpwkCIeu7KMsMcOQ
+  name: LOGIN
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDU
+    name: android.widget.Button
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.Button[@content-desc = 'LOGIN']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.Button
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
+    priority: 2
+- id: uZRDZfBntkSBhEXV3dge5A
   name: >-
     BTC
 
-    39484 $
+    29871 $
 
-    ( 0.17838 % )
+    ( -2.48625 % )
 
-    0
+    0.01275
 
-    $0
+    $3...
   type:
     id: jUwODgyNjAyNzk2NTk3MjI
     name: android.widget.ImageView
@@ -167,66 +247,19 @@ elements:
     value: >-
       //android.widget.ImageView[@content-desc = 'BTC
 
-      39484 $
+      29871 $
 
-      ( 0.17838 % )
+      ( -2.48625 % )
 
-      0
+      0.01275
 
-      $0']
+      $380.85525']
     priority: 0
   - name: XPATH
     value: //android.view.View[1]/android.widget.ImageView
     priority: 1
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View[1]/android.view.View[1]/android.widget.ImageView[1]
-    priority: 2
-- id: chptAqn50EuHSvoKCUQFuw
-  name: ANDROID.VIEW.VIEW
-  type:
-    id: jUwODgyNjAyNzk2NTk4NDY
-    name: android.view.View
-    source: System
-  locators:
-  - name: XPATH
-    value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[1]
-    priority: 0
-  - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]
-    priority: 1
-- id: tsEyieWXGEWeFcrEtEVweg
-  name: >-
-    USDC
-
-    0.998786 $
-
-    ( 0.01671 % )
-
-    0
-
-    $0
-  type:
-    id: jUwODgyNjAyNzk2NTk3MjI
-    name: android.widget.ImageView
-    source: System
-  locators:
-  - name: XPATH
-    value: >-
-      //android.widget.ImageView[@content-desc = 'USDC
-
-      0.998786 $
-
-      ( 0.01671 % )
-
-      0
-
-      $0']
-    priority: 0
-  - name: XPATH
-    value: //android.view.View[3]/android.widget.ImageView
-    priority: 1
-  - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.view.View[1]/android.view.View[3]/android.widget.ImageView[1]
     priority: 2
 projectParameters: []
 addons: []

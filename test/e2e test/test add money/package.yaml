@@ -1,36 +1,36 @@
-id: E64GRCx3B0yPsCsftE5tuA
+id: niu2CRwOmkCdtyU3-TSyLA
 projectId: eWuoNdHvKEOXGEdhL3Lxpg
 projectName: My first Project
-created: 2022-05-18T09:13:55.9512133Z
+created: 2022-05-18T08:32:11.6996967Z
 owner: Minh Hiếu Bùi
 protocol: 1
 tests:
-- id: 7sHsUyz4b0i7og4jlpIHLQ
-  name: Test log out
-  description: ''
+- id: w0_Xc9YTf0WCI0rjyiOJ_Q
+  name: Test add money
+  description: test thêm tiền vào ví
   platform: Android
   type: Mobile
   driverType: Appium_Android
   version: 0.1
-  creationDate: 2022-05-18T09:12:14.0000000
-  modificationDate: 2022-05-18T09:13:26.0000000
+  creationDate: 2022-05-18T08:27:40.0000000
+  modificationDate: 2022-05-18T08:30:56.0000000
   settings:
     automationAssistant: true
     deviceId: R58M33WNE5H
-    appId: JJdAr45SP0iSr82-O440Rg
+    appId: L69CUNjMZ0Gxqo6xUb6IjA
     stepSleepTime: 500
     stepTimeout: 15000
     stepSleepTiming: Before
     stepFailureBehaviorType: Abort
     stepTakeScreenshotConditionType: Failure
   application:
-    id: JJdAr45SP0iSr82-O440Rg
+    id: L69CUNjMZ0Gxqo6xUb6IjA
     androidActivity: com.example.atomic.MainActivity
     androidPackage: com.example.atomic
-    name: Atomic Wallet 1
+    name: Atomic
     platform: Android
   steps:
-  - id: BqDeB9ejT0KxZd4g8vOWeQ
+  - id: 7A8z8pYj30aMrl-lk59BPQ
     comments: Clear application data and restart (Auto-generated)
     enabled: true
     invertResult: false
@@ -50,13 +50,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: QftBMZhAPUKTkk5_-BcIsA
+  - id: N7sqAbxFuUe3d9q9pbZlSQ
     enabled: true
     invertResult: false
     order: 2
     repeat: 1
     type: Action
-    elementId: ij3QJNmwUEq0Q1LBBKTSlg
+    elementId: tAISYocgkUS5bUNGqcjXFw
     settings:
       sleepTime: -1
       timeout: -1
@@ -70,13 +70,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: eBiJOrzveESD6eKMkqJlmA
+  - id: JinyPsXeek6pduxCXoOWkA
     enabled: true
     invertResult: false
     order: 3
     repeat: 1
     type: Action
-    elementId: ij3QJNmwUEq0Q1LBBKTSlg
+    elementId: tAISYocgkUS5bUNGqcjXFw
     settings:
       sleepTime: -1
       timeout: -1
@@ -93,13 +93,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: Tflflep9nE-akc6XFljZhQ
+  - id: PxcyZgFFhkq5wK_yRtuHfg
     enabled: true
     invertResult: false
     order: 4
     repeat: 1
     type: Action
-    elementId: 5Ikj6Oo_n0KADiqmV0Pxog
+    elementId: zGQYtPTqck6DSeIoolgHDg
     settings:
       sleepTime: -1
       timeout: -1
@@ -113,13 +113,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: QOlpIG_Sdka54ltAJtRQkg
+  - id: YhYgHj35H0WBbuRuKMZncw
     enabled: true
     invertResult: false
     order: 5
     repeat: 1
     type: Action
-    elementId: 5Ikj6Oo_n0KADiqmV0Pxog
+    elementId: zGQYtPTqck6DSeIoolgHDg
     settings:
       sleepTime: -1
       timeout: -1
@@ -131,18 +131,18 @@ tests:
       source: System
     parameterMaps:
     - name: keys
-      value: hieu3001
+      value: hieu123
       direction: Input
     conditions: []
     validations: []
     contexts: []
-  - id: i90MmZ7Sr0aWxPzLj-ybkw
+  - id: HK6G_Yj9SUO7-wrzdZUvNw
     enabled: true
     invertResult: false
     order: 6
     repeat: 1
     type: Action
-    elementId: c-LxMbrpwkCIeu7KMsMcOQ
+    elementId: cBwzzmsnKUCUwwhBLXt8dw
     settings:
       sleepTime: -1
       timeout: -1
@@ -156,13 +156,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: l8ZtKywQVUyDmGZGjD22Ng
+  - id: hc-krBgM1kOJD4VkgZ4yzA
     enabled: true
     invertResult: false
     order: 7
     repeat: 1
     type: Action
-    elementId: -C90Vd1Vwk6VjObByFZwDw
+    elementId: JXTHYGmhNkumi50wx5DbNQ
     settings:
       sleepTime: -1
       timeout: -1
@@ -176,13 +176,76 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: WDdyXPxxfESRMYGKIsQQqg
+  - id: KiAVimnr5ECq-ao4B6ISHA
     enabled: true
     invertResult: false
     order: 8
     repeat: 1
     type: Action
-    elementId: ctrLoIsNz0e7UKGACDUsIA
+    elementId: 3RyP9e4_yU2dIoq6iJbrbQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: ZTa9uQJv60OPHnEZIrut2w
+    enabled: true
+    invertResult: false
+    order: 9
+    repeat: 1
+    type: Action
+    elementId: aLYVgXr84EmA0UEeaovrsQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: sCKCr86Uak-ANzsm8qaIcA
+    enabled: true
+    invertResult: false
+    order: 10
+    repeat: 1
+    type: Action
+    elementId: aLYVgXr84EmA0UEeaovrsQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      source: System
+    parameterMaps:
+    - name: keys
+      value: 50
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  - id: qP8u2OVbM0ueKWx7_SsaZQ
+    enabled: true
+    invertResult: false
+    order: 11
+    repeat: 1
+    type: Action
+    elementId: UCJtLnkL90ypvn3BoW-o_g
     settings:
       sleepTime: -1
       timeout: -1
@@ -199,7 +262,7 @@ tests:
   parameters: []
 auxTests: []
 elements:
-- id: ij3QJNmwUEq0Q1LBBKTSlg
+- id: tAISYocgkUS5bUNGqcjXFw
   name: Email
   type:
     id: jUwODgyNjAyNzk2NTk3MTM
@@ -215,7 +278,7 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
     priority: 2
-- id: 5Ikj6Oo_n0KADiqmV0Pxog
+- id: zGQYtPTqck6DSeIoolgHDg
   name: Password
   type:
     id: jUwODgyNjAyNzk2NTk3MTM
@@ -231,7 +294,7 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.widget.EditText[2]
     priority: 2
-- id: c-LxMbrpwkCIeu7KMsMcOQ
+- id: cBwzzmsnKUCUwwhBLXt8dw
   name: LOGIN
   type:
     id: jUwODgyNjAyNzk2NTk4NDU
@@ -247,7 +310,7 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
     priority: 2
-- id: -C90Vd1Vwk6VjObByFZwDw
+- id: JXTHYGmhNkumi50wx5DbNQ
   name: ANDROID.VIEW.VIEW
   type:
     id: jUwODgyNjAyNzk2NTk4NDY
@@ -260,21 +323,59 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]
     priority: 1
-- id: ctrLoIsNz0e7UKGACDUsIA
-  name: Logout
+- id: 3RyP9e4_yU2dIoq6iJbrbQ
+  name: Add USD
   type:
     id: jUwODgyNjAyNzk2NTk4NDU
     name: android.widget.Button
     source: System
   locators:
   - name: XPATH
-    value: //android.widget.Button[@content-desc = 'Logout']
+    value: //android.widget.Button[@content-desc = 'Add USD']
     priority: 0
   - name: XPATH
-    value: //android.widget.Button[3]
+    value: //android.widget.Button[1]
     priority: 1
   - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[3]
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
+    priority: 2
+- id: aLYVgXr84EmA0UEeaovrsQ
+  name: >-
+    50, Money
+
+    $
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: >-
+      //android.widget.EditText[@text = '50, Money
+
+      $']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.EditText
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.widget.EditText[1]
+    priority: 2
+- id: UCJtLnkL90ypvn3BoW-o_g
+  name: Ok
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDU
+    name: android.widget.Button
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.Button[@content-desc = 'Ok']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.Button
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
     priority: 2
 projectParameters: []
 addons: []

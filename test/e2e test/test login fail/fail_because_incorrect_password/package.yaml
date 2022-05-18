@@ -1,19 +1,19 @@
-id: E64GRCx3B0yPsCsftE5tuA
+id: 7sEQcEpNHUiMCd4QdqtAJw
 projectId: eWuoNdHvKEOXGEdhL3Lxpg
 projectName: My first Project
-created: 2022-05-18T09:13:55.9512133Z
+created: 2022-05-18T09:08:32.3316847Z
 owner: Minh Hiếu Bùi
 protocol: 1
 tests:
-- id: 7sHsUyz4b0i7og4jlpIHLQ
-  name: Test log out
+- id: Hkxu64sQr0-4ftzVVV4vCQ
+  name: Test login fail
   description: ''
   platform: Android
   type: Mobile
   driverType: Appium_Android
   version: 0.1
-  creationDate: 2022-05-18T09:12:14.0000000
-  modificationDate: 2022-05-18T09:13:26.0000000
+  creationDate: 2022-05-18T09:03:34.0000000
+  modificationDate: 2022-05-18T09:07:56.0000000
   settings:
     automationAssistant: true
     deviceId: R58M33WNE5H
@@ -30,7 +30,7 @@ tests:
     name: Atomic Wallet 1
     platform: Android
   steps:
-  - id: BqDeB9ejT0KxZd4g8vOWeQ
+  - id: V03JrT4wckSWHl0nmJ3seA
     comments: Clear application data and restart (Auto-generated)
     enabled: true
     invertResult: false
@@ -50,13 +50,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: QftBMZhAPUKTkk5_-BcIsA
+  - id: B-6H5eA0OUWc6Co2V8ff1A
     enabled: true
     invertResult: false
     order: 2
     repeat: 1
     type: Action
-    elementId: ij3QJNmwUEq0Q1LBBKTSlg
+    elementId: VLsbZsHS_0KAJf53ZyVXyw
     settings:
       sleepTime: -1
       timeout: -1
@@ -70,13 +70,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: eBiJOrzveESD6eKMkqJlmA
+  - id: Iu8WIsGjaUyBglMozBd9-Q
     enabled: true
     invertResult: false
     order: 3
     repeat: 1
     type: Action
-    elementId: ij3QJNmwUEq0Q1LBBKTSlg
+    elementId: VLsbZsHS_0KAJf53ZyVXyw
     settings:
       sleepTime: -1
       timeout: -1
@@ -93,7 +93,7 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: Tflflep9nE-akc6XFljZhQ
+  - id: WcNPDsnWGEmTFNnR0AUfww
     enabled: true
     invertResult: false
     order: 4
@@ -113,7 +113,7 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: QOlpIG_Sdka54ltAJtRQkg
+  - id: kH5jbf_mEUa49EVuWNuLQg
     enabled: true
     invertResult: false
     order: 5
@@ -131,12 +131,12 @@ tests:
       source: System
     parameterMaps:
     - name: keys
-      value: hieu3001
+      value: hieu
       direction: Input
     conditions: []
     validations: []
     contexts: []
-  - id: i90MmZ7Sr0aWxPzLj-ybkw
+  - id: OgRazlAIFEWPl66_AHw21Q
     enabled: true
     invertResult: false
     order: 6
@@ -156,65 +156,9 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: l8ZtKywQVUyDmGZGjD22Ng
-    enabled: true
-    invertResult: false
-    order: 7
-    repeat: 1
-    type: Action
-    elementId: -C90Vd1Vwk6VjObByFZwDw
-    settings:
-      sleepTime: -1
-      timeout: -1
-      sleepTiming: Inherit
-      failureBehaviorType: Inherit
-      takeScreenshotConditionType: Inherit
-    action:
-      id: 02d572b2-d610-4700-9ad3-40076ddb9807
-      source: System
-    parameterMaps: []
-    conditions: []
-    validations: []
-    contexts: []
-  - id: WDdyXPxxfESRMYGKIsQQqg
-    enabled: true
-    invertResult: false
-    order: 8
-    repeat: 1
-    type: Action
-    elementId: ctrLoIsNz0e7UKGACDUsIA
-    settings:
-      sleepTime: -1
-      timeout: -1
-      sleepTiming: Inherit
-      failureBehaviorType: Inherit
-      takeScreenshotConditionType: Inherit
-    action:
-      id: 02d572b2-d610-4700-9ad3-40076ddb9807
-      source: System
-    parameterMaps: []
-    conditions: []
-    validations: []
-    contexts: []
   parameters: []
 auxTests: []
 elements:
-- id: ij3QJNmwUEq0Q1LBBKTSlg
-  name: Email
-  type:
-    id: jUwODgyNjAyNzk2NTk3MTM
-    name: android.widget.EditText
-    source: System
-  locators:
-  - name: XPATH
-    value: //android.widget.EditText[@text = 'Email']
-    priority: 0
-  - name: XPATH
-    value: //android.widget.EditText[1]
-    priority: 1
-  - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
-    priority: 2
 - id: 5Ikj6Oo_n0KADiqmV0Pxog
   name: Password
   type:
@@ -247,34 +191,21 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
     priority: 2
-- id: -C90Vd1Vwk6VjObByFZwDw
-  name: ANDROID.VIEW.VIEW
+- id: VLsbZsHS_0KAJf53ZyVXyw
+  name: hieu@gmail.com, Email
   type:
-    id: jUwODgyNjAyNzk2NTk4NDY
-    name: android.view.View
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
     source: System
   locators:
   - name: XPATH
-    value: //android.view.View[1]/android.view.View[1]/android.view.View[2]
+    value: //android.widget.EditText[@text = 'hieu@gmail.com, Email']
     priority: 0
   - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]
-    priority: 1
-- id: ctrLoIsNz0e7UKGACDUsIA
-  name: Logout
-  type:
-    id: jUwODgyNjAyNzk2NTk4NDU
-    name: android.widget.Button
-    source: System
-  locators:
-  - name: XPATH
-    value: //android.widget.Button[@content-desc = 'Logout']
-    priority: 0
-  - name: XPATH
-    value: //android.widget.Button[3]
+    value: //android.widget.EditText[1]
     priority: 1
   - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[3]
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.widget.EditText[1]
     priority: 2
 projectParameters: []
 addons: []

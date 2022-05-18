@@ -1,36 +1,36 @@
-id: Jon9WoBLaUKd6lMQiG5nmQ
+id: R-LtbWOfyUmqEpMIJ6PrnA
 projectId: eWuoNdHvKEOXGEdhL3Lxpg
 projectName: My first Project
-created: 2022-05-13T06:53:07.6803422Z
+created: 2022-05-18T08:43:13.4138822Z
 owner: Minh Hiếu Bùi
 protocol: 1
 tests:
-- id: bnJlcsdxbUKvtsND3efVgw
-  name: Test_sign_up_fail
-  description: ''
+- id: 8RAR3sYNdkC0QwwvgS1NjA
+  name: Test buy fail
+  description: mua nhiều hơn số tiền mình có
   platform: Android
   type: Mobile
   driverType: Appium_Android
   version: 0.1
-  creationDate: 2022-05-13T06:47:12.0000000
-  modificationDate: 2022-05-13T06:48:35.0000000
+  creationDate: 2022-05-18T08:37:53.0000000
+  modificationDate: 2022-05-18T08:39:49.0000000
   settings:
     automationAssistant: true
     deviceId: R58M33WNE5H
-    appId: xQJii8Y1hE67Z6B7oOTeiw
+    appId: JJdAr45SP0iSr82-O440Rg
     stepSleepTime: 500
     stepTimeout: 15000
     stepSleepTiming: Before
     stepFailureBehaviorType: Abort
     stepTakeScreenshotConditionType: Failure
   application:
-    id: xQJii8Y1hE67Z6B7oOTeiw
+    id: JJdAr45SP0iSr82-O440Rg
     androidActivity: com.example.atomic.MainActivity
     androidPackage: com.example.atomic
-    name: Atomic Walle
+    name: Atomic Wallet 1
     platform: Android
   steps:
-  - id: Ta_JYIXn4UqYzEudmflxZA
+  - id: bKRRZHPZCk-kuN1zjbMjDg
     comments: Clear application data and restart (Auto-generated)
     enabled: true
     invertResult: false
@@ -50,13 +50,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: prrw1JdoZEGzBblHRGg2Ig
+  - id: NqhhBLbqi06wUG-L7EgaEg
     enabled: true
     invertResult: false
     order: 2
     repeat: 1
     type: Action
-    elementId: R63u9wgacEetFLNqOzBZdw
+    elementId: ij3QJNmwUEq0Q1LBBKTSlg
     settings:
       sleepTime: -1
       timeout: -1
@@ -70,13 +70,13 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: t2BEyES-3Uy09EIEOJKVLw
+  - id: Zlo_90ZI6E-r4TKEDgPlKA
     enabled: true
     invertResult: false
     order: 3
     repeat: 1
     type: Action
-    elementId: AdSh6s37lkqqEd9ziduCpg
+    elementId: ij3QJNmwUEq0Q1LBBKTSlg
     settings:
       sleepTime: -1
       timeout: -1
@@ -84,19 +84,22 @@ tests:
       failureBehaviorType: Inherit
       takeScreenshotConditionType: Inherit
     action:
-      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
       source: System
-    parameterMaps: []
+    parameterMaps:
+    - name: keys
+      value: hieu@gmail.com
+      direction: Input
     conditions: []
     validations: []
     contexts: []
-  - id: qeyomQ5ZyUaVa9umsWma-Q
+  - id: W56Q4za1U0iQSyZP6RYCGQ
     enabled: true
     invertResult: false
     order: 4
     repeat: 1
     type: Action
-    elementId: AdSh6s37lkqqEd9ziduCpg
+    elementId: 5Ikj6Oo_n0KADiqmV0Pxog
     settings:
       sleepTime: -1
       timeout: -1
@@ -104,22 +107,19 @@ tests:
       failureBehaviorType: Inherit
       takeScreenshotConditionType: Inherit
     action:
-      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
       source: System
-    parameterMaps:
-    - name: keys
-      value: hien@gmail.com
-      direction: Input
+    parameterMaps: []
     conditions: []
     validations: []
     contexts: []
-  - id: ff2aDlrX9EmJMFM9xtupbg
+  - id: XaqPZWzD_E2-vCZ1qDV0zg
     enabled: true
     invertResult: false
     order: 5
     repeat: 1
     type: Action
-    elementId: iMb83IYyBUy89KRQ3Nu8rg
+    elementId: 5Ikj6Oo_n0KADiqmV0Pxog
     settings:
       sleepTime: -1
       timeout: -1
@@ -127,42 +127,22 @@ tests:
       failureBehaviorType: Inherit
       takeScreenshotConditionType: Inherit
     action:
-      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
       source: System
-    parameterMaps: []
+    parameterMaps:
+    - name: keys
+      value: hieu123
+      direction: Input
     conditions: []
     validations: []
     contexts: []
-  - id: mLfFQ-QIwkq6DPfKaaeE8g
+  - id: Yhbj-WIg80WH8r4e1ybukg
     enabled: true
     invertResult: false
     order: 6
     repeat: 1
     type: Action
-    elementId: iMb83IYyBUy89KRQ3Nu8rg
-    settings:
-      sleepTime: -1
-      timeout: -1
-      sleepTiming: Inherit
-      failureBehaviorType: Inherit
-      takeScreenshotConditionType: Inherit
-    action:
-      id: 6f94fdaa-0041-4265-b73b-ecfcbe702d66
-      source: System
-    parameterMaps:
-    - name: keys
-      value: 123456
-      direction: Input
-    conditions: []
-    validations: []
-    contexts: []
-  - id: l-zIzs00lUerC2T6Yd3rrw
-    enabled: true
-    invertResult: false
-    order: 7
-    repeat: 1
-    type: Action
-    elementId: 43kgg0uukEie5WPnuVVFtA
+    elementId: c-LxMbrpwkCIeu7KMsMcOQ
     settings:
       sleepTime: -1
       timeout: -1
@@ -176,13 +156,53 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: uy5-pDqmhkqlMNFW3rCOgw
+  - id: l9f3sC_YfECPo-HK0t3rMQ
+    enabled: true
+    invertResult: false
+    order: 7
+    repeat: 1
+    type: Action
+    elementId: Nkcq6wSFl0y3QX8FDDGFUA
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: Ah6Fv82yV0-WY5kIf9o-fw
     enabled: true
     invertResult: false
     order: 8
     repeat: 1
     type: Action
-    elementId: 43kgg0uukEie5WPnuVVFtA
+    elementId: ZDsvMJBmtUqM4R0bUIfi9g
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: xYXRCrnKgUmKdRWexRQlbQ
+    enabled: true
+    invertResult: false
+    order: 9
+    repeat: 1
+    type: Action
+    elementId: ZDsvMJBmtUqM4R0bUIfi9g
     settings:
       sleepTime: -1
       timeout: -1
@@ -194,18 +214,18 @@ tests:
       source: System
     parameterMaps:
     - name: keys
-      value: 12345
+      value: 300
       direction: Input
     conditions: []
     validations: []
     contexts: []
-  - id: hOctq9V-AEG35qOlUsqlkg
+  - id: g0TOcM2BfEyFM-7sjvI3Eg
     enabled: true
     invertResult: false
-    order: 9
+    order: 10
     repeat: 1
     type: Action
-    elementId: mGZC70Gr_EW695XHpXebJQ
+    elementId: Gh2mO3-7hEmTmpjPf2yqlA
     settings:
       sleepTime: -1
       timeout: -1
@@ -222,7 +242,7 @@ tests:
   parameters: []
 auxTests: []
 elements:
-- id: AdSh6s37lkqqEd9ziduCpg
+- id: ij3QJNmwUEq0Q1LBBKTSlg
   name: Email
   type:
     id: jUwODgyNjAyNzk2NTk3MTM
@@ -238,7 +258,7 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.EditText[1]
     priority: 2
-- id: iMb83IYyBUy89KRQ3Nu8rg
+- id: 5Ikj6Oo_n0KADiqmV0Pxog
   name: Password
   type:
     id: jUwODgyNjAyNzk2NTk3MTM
@@ -254,53 +274,69 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.widget.EditText[2]
     priority: 2
-- id: R63u9wgacEetFLNqOzBZdw
-  name: Sign up here
-  type:
-    id: jUwODgyNjAyNzk2NTk4NDY
-    name: android.view.View
-    source: System
-  locators:
-  - name: XPATH
-    value: //android.view.View[@content-desc = 'Sign up here']
-    priority: 0
-  - name: XPATH
-    value: //android.view.View[2]
-    priority: 1
-  - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]
-    priority: 2
-- id: 43kgg0uukEie5WPnuVVFtA
-  name: Confirm password
-  type:
-    id: jUwODgyNjAyNzk2NTk3MTM
-    name: android.widget.EditText
-    source: System
-  locators:
-  - name: XPATH
-    value: //android.widget.EditText[@text = 'Confirm password']
-    priority: 0
-  - name: XPATH
-    value: //android.widget.EditText[3]
-    priority: 1
-  - name: XPATH
-    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ScrollView[1]/android.widget.EditText[3]
-    priority: 2
-- id: mGZC70Gr_EW695XHpXebJQ
-  name: SIGN UP
+- id: c-LxMbrpwkCIeu7KMsMcOQ
+  name: LOGIN
   type:
     id: jUwODgyNjAyNzk2NTk4NDU
     name: android.widget.Button
     source: System
   locators:
   - name: XPATH
-    value: //android.widget.Button[@content-desc = 'SIGN UP']
+    value: //android.widget.Button[@content-desc = 'LOGIN']
     priority: 0
   - name: XPATH
     value: //android.widget.Button
     priority: 1
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
+    priority: 2
+- id: Nkcq6wSFl0y3QX8FDDGFUA
+  name: Tab 4 of 4
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'Tab 4 of 4']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[4]/android.view.View[4]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[4]/android.view.View[4]
+    priority: 2
+- id: ZDsvMJBmtUqM4R0bUIfi9g
+  name: You send
+  type:
+    id: jUwODgyNjAyNzk2NTk3MTM
+    name: android.widget.EditText
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.EditText[@text = 'You send']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.EditText
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.widget.EditText[1]
+    priority: 2
+- id: Gh2mO3-7hEmTmpjPf2yqlA
+  name: BUY
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDU
+    name: android.widget.Button
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.Button[@content-desc = 'BUY']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.Button
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]/android.widget.Button[1]
     priority: 2
 projectParameters: []
 addons: []
