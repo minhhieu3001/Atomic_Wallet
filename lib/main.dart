@@ -1,21 +1,27 @@
+import 'dart:async';
+
 import 'package:atomic/ui/screen/buy.dart';
 import 'package:atomic/ui/screen/exchange.dart';
 import 'package:atomic/ui/screen/history.dart';
 import 'package:atomic/ui/screen/login.dart';
 import 'package:atomic/ui/screen/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../ui/component.dart';
 import '../ui/screen/home.dart';
-import '../ui/screen/settings.dart';
+import 'model/Wallet.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -48,13 +54,16 @@ class _MyAppState extends State<MyApp> {
 enum TabItem { home, history, convert, buy }
 
 class MainApp extends StatefulWidget {
-  const MainApp({Key? key}) : super(key: key);
+   MainApp({Key? key, this.uid}) : super(key: key);
+
+  String? uid;
 
   @override
   _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
+  Timer? debouncer;
   TabItem _currentItem = TabItem.home;
   final List<TabItem> _bottomTabs = [
     TabItem.home,
@@ -70,12 +79,16 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
 
   late AnimationController animation;
   late Animation<double> _fadeInFadeOut;
+  Wallet wallet = Wallet(uid: "", coins: [], money: 0);
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
+    init();
+
     super.initState();
-    //fetchCoin();
-    //Timer.periodic(const Duration(seconds: 10), (timer) => fetchCoin());
+
     animation = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
@@ -93,6 +106,31 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    debouncer?.cancel();
+    super.dispose();
+  }
+
+  void debounce(
+      VoidCallback callback, {
+        Duration duration = const Duration(milliseconds: 1000),
+      }) {
+    if (debouncer != null) {
+      debouncer!.cancel();
+    }
+
+    debouncer = Timer(duration, callback);
+  }
+
+   Future init() async => debounce(() {
+     final docs = firestore.collection("Wallet").where("uid", isEqualTo: _auth.currentUser!.uid).get()
+         .then((snapshot) {
+       wallet.uid = snapshot.docs[0].get("uid");
+       wallet.money = snapshot.docs[0].get("money").toDouble();
+     });
+   });
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
         future: _calculation,
@@ -105,13 +143,13 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
                 child: SafeArea(
                   child: appBar(
                     left: const Icon(Icons.notes, color: Colors.white),
-                    title: "0.00 \$",
+                    title: wallet.money.toStringAsFixed(5)+ " \$",
                     right: GestureDetector(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Settings()));
+                                  builder: (context) => const Setting()));
                         },
                         child: const Icon(Icons.settings, color: Colors.white)),
                   ),
@@ -161,7 +199,7 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
   BottomNavigationBarItem _bottomNavigationBarItem(
       IconData icon, TabItem tabItem) {
     final Color color =
-        _currentItem == tabItem ? Colors.black12 : Colors.white60;
+        _currentItem == tabItem ? Colors.yellow : Colors.white60;
 
     return BottomNavigationBarItem(icon: Icon(icon, color: color), label: '');
   }
@@ -198,7 +236,7 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
       case TabItem.convert:
         return Exchange();
       case TabItem.buy:
-        return Buy();
+        return Buy(wallet: wallet);
       default:
         return HomeScreen();
     }

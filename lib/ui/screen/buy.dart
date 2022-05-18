@@ -1,16 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../InfoCoin.dart';
+import '../../main.dart';
+import '../../service/Database.dart';
+import '../../model/CoinData.dart';
+import '../../model/InfoCoin.dart';
+import '../../model/Wallet.dart';
 import 'chooseCoin.dart';
 
 class Buy extends StatefulWidget {
-  const Buy({Key? key}) : super(key: key);
+  final Wallet wallet;
+  const Buy({Key? key, required this.wallet}) : super(key: key);
 
   @override
   State<Buy> createState() => _BuyState();
 }
 
 class _BuyState extends State<Buy> {
+
+  Database db= new Database();
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  Wallet wallet = Wallet(uid: "", coins: [], money: 0);
 
   String value = '';
 
@@ -30,22 +42,24 @@ class _BuyState extends State<Buy> {
 
   @override
   void initState() {
+    final docs = firestore.collection("Wallet").where("uid", isEqualTo: _auth.currentUser!.uid).get()
+        .then((snapshot) {
+      wallet.uid = snapshot.docs[0].get("uid");
+      wallet.money = snapshot.docs[0].get("money").toDouble();
+    });
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(32, 43, 71, 1),
-      body: Column(
+      body: SingleChildScrollView(
+      child: Column(
         children:  [
-          Row(
-            children: const [
-              SizedBox(width: 150,),
-              Text("Buy", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),),
-              SizedBox(width: 100,),
-              Icon(Icons.history),
-            ],
+          Center(
+            child: Text("BUY", style: TextStyle(color: Colors.white, fontSize: 30),),
           ),
           SizedBox(height: 20,),
           Container(
@@ -81,7 +95,7 @@ class _BuyState extends State<Buy> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Image.network("https://icon2.cleanpng.com/20180730/uee/kisspng-logo-united-states-dollar-money-green-tick-with-transparent-background-5b5ebca401c266.2114332415329353320072.jpg", width: 50,),
+                          Image.network("https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Dollar-USD-icon.png", width: 48,),
                           const SizedBox(width: 10,),
                           const Text("USD", style: TextStyle(color: Colors.white),),
                           const SizedBox(width: 10,),
@@ -132,19 +146,47 @@ class _BuyState extends State<Buy> {
             ),
           ),
           const SizedBox(height: 120,),
-          SizedBox(
-            height: 60,
-            width: 350,
-            child: RaisedButton(color: const Color.fromRGBO(139, 136, 136, 0.3),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            SizedBox(
+              height: 60,
+              width: 350,
+              child: RaisedButton(color: Colors.teal,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
               onPressed: (){
-//?
+                if(double.parse(value)*newCoin.price > wallet.money) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.redAccent,
+                    content: Text("You don't have enough money. Try again"),
+                  ),);
+                } else {
+                  final docs = firestore.collection("Wallet").where("uid", isEqualTo: _auth.currentUser!.uid).get()
+                      .then((snapshot) {
+                    final List list = snapshot.docs[0].get("coins");
+                    List<CoinData> coinDatas = list.map((model) =>
+                        CoinData.fromJson(model)).toList();
+                    CoinData coin = new CoinData(name: newCoin.name.toUpperCase(), have: double.parse(double.parse(value).toStringAsFixed(5)));
+                    List<Map> coins = [];
+                    bool check = true;
+                    for(CoinData i in coinDatas) {
+                      if(coin.name.toUpperCase() == i.name.toUpperCase()) {
+                        i.have = i.have + coin.have;
+                        i.have = double.parse(i.have.toStringAsFixed(5));
+                        check = false;
+                      }
+                      coins.add(i.toMap());
+                    }
+                    if(check == true) coins.add(coin.toMap()); else {check = true;}
+                    //print(snapshot.docs[0].id.toString());
+                    wallet.money = double.parse((wallet.money - double.parse(value) * newCoin.price).toStringAsFixed(8));
+                    db.update(coins, snapshot.docs[0].id.toString(), wallet.money);
+                  });
+                  showMyAlertDialog(context, "Buy " + newCoin.name.toUpperCase() + " success!");
+                }
               },
-              child: const Text("CONTINUE", style: TextStyle(color: Colors.white24, fontSize: 20),),
+              child: const Text("BUY", style: TextStyle(color: Colors.white, fontSize: 20),),
             ),
           )
         ],
-      ),
+      ),),
     );
   }
 
@@ -153,5 +195,32 @@ class _BuyState extends State<Buy> {
     setState(() {
       newCoin = result;
     });
+  }
+
+  showMyAlertDialog(BuildContext context,String text) {
+    // Create AlertDialog
+    AlertDialog dialog = AlertDialog(
+      title: Text("Alert"),
+      content: Text(text),
+      actions: [
+        ElevatedButton(
+            child: Text("Ok"),
+            onPressed: (){
+              if(text.indexOf("Buy") != 0) {
+                Navigator.of(context).pop();
+              } else {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => MainApp(uid:wallet.uid)));
+              }
+            }
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      },
+    );
   }
 }

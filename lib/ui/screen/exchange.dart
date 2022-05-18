@@ -1,6 +1,11 @@
 import 'package:atomic/ui/screen/chooseCoin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../InfoCoin.dart';
+import '../../main.dart';
+import '../../model/CoinData.dart';
+import '../../model/InfoCoin.dart';
+import '../../service/Database.dart';
 
 class Exchange extends StatefulWidget {
   const Exchange({Key? key}) : super(key: key);
@@ -12,7 +17,11 @@ class Exchange extends StatefulWidget {
 
 class _ExchangeState extends State<Exchange> {
 
+  Database db= new Database();
   String value = '';
+  
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   InfoCoin curCoin = InfoCoin(imageUrl: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
       name: "btc", price: 40232, percent: 1.87614, balance: 0, profit: 0, highest: 41004, lowest: 39444);
@@ -25,7 +34,7 @@ class _ExchangeState extends State<Exchange> {
       if(number == 0 ) {
         value = '0';
       } else {
-        value = (number * curCoin.price / newCoin.price).toString().substring(0, 10);
+        value = (number * curCoin.price / newCoin.price).toStringAsFixed(5);
       }
     });
   }
@@ -39,15 +48,11 @@ class _ExchangeState extends State<Exchange> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(32, 43, 71, 1),
-      body: Column(
+      body: SingleChildScrollView(
+      child: Column(
         children:  [
-          Row(
-            children: const [
-              SizedBox(width: 150,),
-              Text("Exchange", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),),
-              SizedBox(width: 100,),
-              Icon(Icons.history),
-            ],
+          Center(
+          child: Text("EXCHANGE", style: TextStyle(color: Colors.white, fontSize: 30),),
           ),
           SizedBox(height: 20,),
           Container(
@@ -138,16 +143,63 @@ class _ExchangeState extends State<Exchange> {
           SizedBox(
             height: 60,
             width: 350,
-            child: RaisedButton(color: const Color.fromRGBO(139, 136, 136, 0.3),
+            child: RaisedButton(color: Colors.teal,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
               onPressed: (){
-//?
+                final docs = firestore.collection("Wallet").where("uid", isEqualTo: _auth.currentUser!.uid).get()
+                    .then((snapshot) {
+                  final List list = snapshot.docs[0].get("coins");
+                  List<CoinData> coinDatas = list.map((model) =>
+                      CoinData.fromJson(model)).toList();
+                  if (coinDatas.length == 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      content: Text("You don't have enough " + curCoin.name.toUpperCase() +". Try again"),
+                    ),);
+                  } else {
+                    List<Map> coins = [];
+                    bool check = false;
+                    double curValue = double.parse(value) * newCoin.price / curCoin.price;
+                    for(CoinData i in coinDatas) {
+                      if(i.name.toUpperCase() == curCoin.name.toUpperCase()) {
+                        if(i.have >= curValue) {
+                          i.have =double.parse((i.have - curValue).toStringAsFixed(5));
+                          check = true;
+                        } else {
+                          check = false;
+                        }
+                      }
+                    }
+                    if(check == true) {
+                      for(CoinData i in coinDatas) {
+                        if(i.name.toUpperCase() == newCoin.name.toUpperCase()) {
+                          i.have = double.parse((i.have + double.parse(value)).toStringAsFixed(5));
+                          check = false;
+                        }
+                      }
+                      if(check == true) coins.add(new CoinData(name: newCoin.name.toUpperCase(),
+                          have: double.parse((double.parse(value)).toStringAsFixed(5))).toMap());
+                      showMyAlertDialog(context, "Exchange success!");
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.redAccent,
+                        content: Text("You don't have enough " + curCoin.name.toUpperCase() + ". Try again"),
+                      ),);
+                    }
+                    for(CoinData i in coinDatas) {
+                      coins.add(i.toMap());
+                    }
+                    db.update(coins, snapshot.docs[0].id.toString(),
+                        snapshot.docs[0].get("money"));
+
+                  }
+                });
               },
-              child: const Text("EXCHANGE", style: TextStyle(color: Colors.white24, fontSize: 20),),
+              child: const Text("EXCHANGE", style: TextStyle(color: Colors.white, fontSize: 20),),
             ),
           )
         ],
-      ),
+      ),),
     );
   }
 
@@ -163,6 +215,28 @@ class _ExchangeState extends State<Exchange> {
     setState(() {
       newCoin = result;
     });
+  }
+  showMyAlertDialog(BuildContext context,String text) {
+    // Create AlertDialog
+    AlertDialog dialog = AlertDialog(
+      title: Text("Alert"),
+      content: Text(text),
+      actions: [
+        ElevatedButton(
+            child: Text("Ok"),
+            onPressed: (){
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => MainApp(uid:_auth.currentUser?.uid)));
+            }
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return dialog;
+      },
+    );
   }
 }
 

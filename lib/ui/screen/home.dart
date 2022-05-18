@@ -1,5 +1,8 @@
-import 'package:atomic/InfoCoin.dart';
+import 'package:atomic/model/InfoCoin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../model/CoinData.dart';
 import '../component/listCoin.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -21,6 +24,7 @@ Future<List<InfoCoin>> fetchCoin(String searchValue) async {
   if (response.statusCode == 200) {
     final List list = json.decode(response.body);
     List<InfoCoin> coins = list.map((model) => InfoCoin.fromJson(model)).toList();
+
     if(searchValue == "") {
       return coins;
     } else {
@@ -44,11 +48,34 @@ class _HomeScreenState extends State<HomeScreen> {
   String _searchValue = "";
 
   List<InfoCoin> coins = [];
+  List<CoinData> coinDatas = [];
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  initialse() {
+    final docs = firestore.collection("Wallet").where("uid", isEqualTo: _auth.currentUser!.uid).get()
+        .then((snapshot) {
+      final List list = snapshot.docs[0].get("coins");
+      coinDatas = list.map((model) => CoinData.fromJson(model)).toList();
+      // for(CoinData i in coinDatas) {
+      //   for(InfoCoin coin in coins) {
+      //     if(coin.name.toLowerCase() == i.name.toLowerCase()) {
+      //       coin.balance = i.have;
+      //       coin.profit = coin.balance * coin.price;
+      //     }
+      //   }
+      // }
+    });
+  }
 
   @override
   void initState() {
-    super.initState();
+    initialse();
     init();
+
+
+    super.initState();
   }
 
   @override
@@ -70,6 +97,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future init() async {
     final coins = await fetchCoin(_searchValue);
+    for(CoinData i in coinDatas) {
+      for(InfoCoin coin in coins) {
+        if(coin.name.toLowerCase() == i.name.toLowerCase()) {
+          coin.balance = i.have;
+          coin.profit = double.parse((coin.balance * coin.price).toStringAsFixed(8));
+        }
+      }
+    }
 
     setState(() => this.coins = coins);
   }

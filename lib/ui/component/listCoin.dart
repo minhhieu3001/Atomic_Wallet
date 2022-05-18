@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../InfoCoin.dart';
+import '../../model/InfoCoin.dart';
 import '../screen/detail_wallet.dart';
 
 class ListCoin extends StatelessWidget {

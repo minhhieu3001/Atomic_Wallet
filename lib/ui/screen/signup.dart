@@ -1,6 +1,11 @@
+import 'dart:collection';
+
 import 'package:atomic/ui/screen/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../model/CoinData.dart';
+import '../../model/Wallet.dart';
 import '/ui/component.dart';
 import '/ui/screen/detail_wallet.dart';
 
@@ -35,6 +40,7 @@ class _SignupPageState extends State<SignupPage> {
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.mail, color: Colors.white,),
                       enabledBorder: UnderlineInputBorder(
@@ -86,13 +92,13 @@ class _SignupPageState extends State<SignupPage> {
                 child: RaisedButton(color: const Color.fromRGBO(27, 142, 249, 1),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                   onPressed: (){
-                    if(_passwordController.text != _confirmPasswordController.text) {
-                      showMyAlertDialog(context);
-                    } else {
-                      if (_formKey.currentState != null) {
-                        _signUp();
-                      }
-                    }
+                  if(_confirmPasswordController.text != _passwordController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      content: Text( "Confirmation password is different from password. Try again"),
+                    ),);
+                  }
+                    _signUp();
                   },
                   child: const Text("SIGN UP", style: TextStyle(color: Colors.white, fontSize: 20),),
                 ),
@@ -110,32 +116,46 @@ class _SignupPageState extends State<SignupPage> {
       .then((value) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => LoginPage()));
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+        FirebaseAuth _auth = FirebaseAuth.instance;
+        CollectionReference reference = firestore.collection("Wallet");
+        List<Map> coins = [];
+        reference.add({"uid": _auth.currentUser!.uid, "coins": coins, "money": 0}).then((value) => print("Add dc"));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Text( "Sign up success !"),
+        ),);
+
       });
     } on FirebaseAuthException catch(e) {
-      print("exception");
+      String errMsg = "";
+      switch(e.code) {
+        case 'email-already-in-use':
+          errMsg = "This Email ID already Associated with Another Account.";
+          break;
+        case 'invalid-email':
+          errMsg = 'Your email address appears to be malformed.';
+          break;
+        case 'wrong-password':
+          errMsg = 'Your password is wrong.';
+          break;
+        case 'user-not-found':
+          errMsg = "User with this email doesn't exist.";
+          break;
+        case 'user-disabled':
+          errMsg = 'User with this email has been disabled.';
+          break;
+        case 'too-many-requests':
+          errMsg = 'Too many requests';
+          break;
+        case 'operation-not-allowed':
+          errMsg = 'Signing in with Email and Password is not enabled.';
+          break;
+      }
+      await ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.redAccent,
+        content: Text( errMsg + " Try again"),
+      ),);
     }
-
-  }
-
-  showMyAlertDialog(BuildContext context) {
-    // Create AlertDialog
-    AlertDialog dialog = AlertDialog(
-      title: Text("Error"),
-      content: Text("Confirmation password is different from password!"),
-      actions: [
-        ElevatedButton(
-            child: Text("Continue"),
-            onPressed: (){
-              Navigator.of(context).pop(); // Return value
-            }
-        ),
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return dialog;
-      },
-    );
   }
 }

@@ -17,9 +17,12 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(32, 43, 71, 1),
-      body: Column(
+      body:SingleChildScrollView(
+      child: Column(
         children: [
-          const Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20), child: Center(child: Text("History", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400)),),),
+          Center(
+            child: Text("HISTORY", style: TextStyle(color: Colors.white, fontSize: 30),),
+          ),
           const Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20), child: Center(child: Text("Your transaction will appear here", style: TextStyle(color: Color.fromRGBO(196, 196, 196, 1), fontSize: 18, fontWeight: FontWeight.w400),), ) ,),
           Image.asset(imgPath, width: 380,),
           const SizedBox(height: 120,),
@@ -33,7 +36,7 @@ class _HistoryState extends State<History> {
             ),
           )
         ],
-      ),
+      ),),
     );
   }
 }

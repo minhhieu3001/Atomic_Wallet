@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import '../../InfoCoin.dart';
+import '../../model/InfoCoin.dart';
 
 List<InfoCoin> parseCoins(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;

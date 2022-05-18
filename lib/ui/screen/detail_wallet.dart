@@ -1,4 +1,4 @@
-import 'package:atomic/InfoCoin.dart';
+import 'package:atomic/model/InfoCoin.dart';
 import 'package:atomic/ui/screen/home.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class DetailWalletScreen extends StatelessWidget {
               left: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: const Icon(Icons.arrow_back_ios, color: Colors.teal)),
-              title: coin.name,
+              title: coin.name.toUpperCase(),
               right: const Icon(Icons.history),
           ),
         ),
@@ -111,15 +111,17 @@ class DetailWalletScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(coin.balance.toString() + " ", style: const TextStyle(color: Colors.white, fontSize: 30),),
-                Text(coin.name, style: const TextStyle(color: Colors.white54, fontSize: 30),),
+                Text(coin.name.toUpperCase(), style: const TextStyle(color: Colors.white54, fontSize: 30),),
               ],
             ),
-            Text(coin.profit.toString(), style: const TextStyle(color: Colors.white, fontSize: 30),),
+            Text(coin.profit.toString() + " \$", style: const TextStyle(color: Colors.white, fontSize: 30),),
             Row(
               children: [
                 Text(coin.highest.toString(), style: TextStyle(color: Colors.white54),),
-                const SizedBox(width: 50,),
-                Text(coin.price.toString() + "(" + coin.percent.toString() + "%)", style: const TextStyle(color: Colors.white54))
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(60, 5, 50, 5),
+                  child: Text(coin.price.toString() + "(" + coin.percent.toString() + "%)",
+                    style: coin.percent > 0 ? TextStyle(color: Colors.lightGreen) : TextStyle(color: Colors.redAccent)))
               ],
             ),
             const Divider(

@@ -2,6 +2,7 @@ import 'package:atomic/main.dart';
 import 'package:atomic/ui/screen/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import '/ui/component.dart';
 import '/ui/screen/detail_wallet.dart';
 
@@ -14,10 +15,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _imgPath = 'assets/images/atomic.png';
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<User?> login(
       {required String username, required String password, required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
@@ -71,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.password, color: Colors.white,),
+                      prefixIcon: Icon(Iconsax.key1, color: Colors.white,),
                       enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white)),
                       labelText: "Password",
@@ -88,18 +89,42 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     onPressed: () async {
-                      User? user = await login(username: _emailController.text,
-                          password: _passwordController.text,
-                          context: context);
-                      if(user == null) {
-                        showMyAlertDialog(context);
+                      try {
+                        await auth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text)
+                          .then((value) => {
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (context) => MainApp(uid: auth.currentUser!.uid )))
+                          });
+                      } on FirebaseAuthException catch (error) {
+                        String errMsg= '';
+                        switch(error.code) {
+                          case 'invalid-email':
+                            errMsg = 'Your email address appears to be malformed.';
+                            break;
+                          case 'wrong-password':
+                            errMsg = 'Your password is wrong.';
+                            break;
+                          case 'user-not-found':
+                            errMsg = "User with this email doesn't exist.";
+                            break;
+                          case 'user-disabled':
+                            errMsg = 'User with this email has been disabled.';
+                            break;
+                          case 'too-many-requests':
+                            errMsg = 'Too many requests';
+                            break;
+                          case 'operation-not-allowed':
+                            errMsg = 'Signing in with Email and Password is not enabled.';
+                            break;
+                          default:
+                            errMsg = 'An undefined Error happened.';
+                        }
+                        await ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.redAccent,
+                          content: Text( errMsg + " Try again"),
+                        ),);
                       }
-                      if (user != null) {
-                        print(user);
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => MainApp()));
-                      }
-                    },
+                      },
                     child: const Text(
                       "LOGIN",
                       style: TextStyle(color: Colors.white, fontSize: 20),
@@ -136,28 +161,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
-  }
-
-  showMyAlertDialog(BuildContext context) {
-    // Create AlertDialog
-    AlertDialog dialog = AlertDialog(
-      title: Text("Error"),
-      content: Text("User or password is not correct!"),
-      actions: [
-        ElevatedButton(
-            child: Text("Continue"),
-            onPressed: (){
-              Navigator.of(context).pop(); // Return value
-            }
-        ),
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return dialog;
-      },
     );
   }
 }
