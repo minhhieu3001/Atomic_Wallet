@@ -12,6 +12,9 @@ A clone version of Atomic Wallet on Android with Flutter.
 
 Using Pixel 3XL Android Emulator is recommended.
 
+## REPORT
+![Atomic Wallet application report](https://docs.google.com/document/d/1wAEdpStVKS_6vSSvQxNkixCbeQjzzVZOIQVq1LRU7Q4/edit?usp=sharing)
+
 ## TEST
 1. Login fail
 - Login fail because wrong email
@@ -58,7 +61,7 @@ Using Pixel 3XL Android Emulator is recommended.
 
 10.  ChangePassword
 - Change fail
-1[](https://github.com/minhhieu3001/Atomic_Wallet/blob/main/test/e2e%20test/test%20change%20password/change_fail/result.png)
+![](https://github.com/minhhieu3001/Atomic_Wallet/blob/main/test/e2e%20test/test%20change%20password/change_fail/result.png)
 
 - Change success
 ![](https://github.com/minhhieu3001/Atomic_Wallet/blob/main/test/e2e%20test/test%20change%20password/change_success/result.png)
