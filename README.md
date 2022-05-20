@@ -13,7 +13,7 @@ A clone version of Atomic Wallet on Android with Flutter.
 Using Pixel 3XL Android Emulator is recommended.
 
 ## REPORT
-![Atomic Wallet application report](https://docs.google.com/document/d/1wAEdpStVKS_6vSSvQxNkixCbeQjzzVZOIQVq1LRU7Q4/edit?usp=sharing)
+[Atomic Wallet application report](https://docs.google.com/document/d/1wAEdpStVKS_6vSSvQxNkixCbeQjzzVZOIQVq1LRU7Q4/edit?usp=sharing)
 
 ## TEST
 1. Login fail
