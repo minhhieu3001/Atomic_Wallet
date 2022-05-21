@@ -9,8 +9,9 @@ A clone version of Atomic Wallet on Android with Flutter.
 2. Make sure flutter is installed. Open the project folder in Android Studio.
 3. Open ```pubspec.yaml``` and choose "Pub get" or run
 4. Compile and run ```main.dart```.
-
 Using Pixel 3XL Android Emulator is recommended.
+
+Or [You can download apk file here](https://github.com/minhhieu3001/Atomic_Wallet/releases/tag/1.0.0)
 
 ## REPORT
 [Atomic Wallet application report](https://docs.google.com/document/d/1wAEdpStVKS_6vSSvQxNkixCbeQjzzVZOIQVq1LRU7Q4/edit?usp=sharing)
